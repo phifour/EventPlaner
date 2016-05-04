@@ -1,0 +1,120 @@
+{% include "shared/header.html" %}
+
+<!--Name of the event
+Type of the event (birthday party, conference talk, wedding, etc.)
+Event host (could be an individual’s name or an organization)
+Event start date and time
+Event end date and time
+Guest list
+Location-->
+
+<div ng-controller="DatepickerDemoCtrl">
+    <div ng-controller="TimepickerDemoCtrl">
+            <div class="container" ng-controller="DetailsController">
+   <!--type wird vom browser gespeichert-->
+   
+   <form>
+  <legend>Event Info</legend>
+  <div class="form-group">
+    <!--<input type="text" autofocus placeholder="my birthday party" ng-model="event.title" /> -->
+    <label>Name of Event</label>
+    <input type="text" ng-model="event.title" autofocus placeholder="peters party">
+  </div>
+
+  <div class="form-group">
+    <!--<input type="text" autofocus placeholder="my birthday party" ng-model="event.title" /> -->
+    <label>Type of event</label>
+    <input type="text" ng-model="event.type" placeholder="party">
+  </div>
+
+  <div class="form-group">
+    <!--<input type="text" autofocus placeholder="my birthday party" ng-model="event.title" /> -->
+	<label>Location of event</label><input type="text" placeholder="123 Any Street" ng-model="event.location" /> 
+  </div>
+
+  <div class="form-group">
+    <!--<input type="text" autofocus placeholder="my birthday party" ng-model="event.title" /> -->
+	<label>Host of event</label><input type="text" ng-model="event.host" /> 
+  </div>
+
+</form>
+     
+   <label>Guest</label><input type="text" placeholder="John Smith" ng-model="guest" /> 
+   <button type="submit" class="btn btn-primary" ng-click="addguest(guest)">Add Guest</button>	
+
+    <ul>
+         {% raw %}<li ng-repeat="guest in guestlist">{{guest}}</li>{% endraw %}
+    </ul>
+
+
+<label for="frmFavChocolate">Favorite Type of Chocolate</label>
+<input type="text"  ng-model="event.choc" id="frmFavChocolate" list="chocType">
+<datalist id="chocType">
+  <option value="white">
+  <option value="milk">
+  <option value="dark">
+</datalist>
+
+<label for="frmAddressS">Address</label>
+<input type="text" name="ship-address" required id="frmAddressS" placeholder="123 Any Street" autocomplete="shipping street-address">
+
+
+    <label for="frmAddressS">Address</label>
+    <input name="ship-address" required id="frmAddressS" placeholder="123 Any Street" autocomplete="street-address">
+
+    <h4>Start date</h4>
+    <div style="display:inline-block; min-height:290px;">
+      <uib-datepicker ng-model="startdate" class="well well-sm" datepicker-options="options"></uib-datepicker>
+    </div>
+
+    <h4>End date</h4>
+    <div style="display:inline-block; min-height:290px;">
+      <uib-datepicker ng-model="enddate" class="well well-sm" datepicker-options="options"></uib-datepicker>
+    </div>
+
+
+
+    <hr />
+    <!--<button type="button" class="btn btn-sm btn-info" ng-click="today()">Today</button>
+    <button type="button" class="btn btn-sm btn-default" ng-click="setDate(2009, 7, 24)">2009-08-24</button>
+    <button type="button" class="btn btn-sm btn-danger" ng-click="clear()">Clear</button>
+    <button type="button" class="btn btn-sm btn-default" ng-click="toggleMin()" uib-tooltip="After today restriction">Min date</button>-->
+
+
+  <uib-timepicker ng-model="starttime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
+  
+  <uib-timepicker ng-model="endtime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>   
+
+   {% raw %}
+   <pre class="alert alert-info">Events starts at {{startdate | date:'fullDate' }} {{enddate | date:'fullDate' }}   {{starttime | date:'shortTime' }} {{endtime | date:'shortTime' }}</pre>
+   {% endraw %} 
+
+
+
+
+  <!--<div class="row"> 
+      
+    <div class="col-xs-6">
+        Hours step is:
+      <select class="form-control" ng-model="hstep" ng-options="opt for opt in options.hstep"></select>
+    </div>
+    
+    <div class="col-xs-6">
+        Minutes step is:
+      <select class="form-control" ng-model="mstep" ng-options="opt for opt in options.mstep"></select>
+    </div>
+    
+  </div>-->
+
+  <hr>
+
+  <button type="submit" class="btn btn-primary" ng-click="addEvent(event)">Add Event</button>	
+  <!--<button type="button" class="btn btn-info" ng-click="toggleMode()">12H / 24H</button>-->
+  <!--<button type="button" class="btn btn-default" ng-click="update()">Set to 14:00</button>-->
+  <button type="button" class="btn btn-danger" ng-click="clear()">Clear</button>
+
+
+
+</div>
+</div>
+</div>

@@ -1,0 +1,12 @@
+{% include "shared/header.html" %}
+
+<div class="container" ng-controller="DetailsController">
+
+<ul>
+    {% raw %}<li>First name: {{params.eventID}}</li>  
+   <li>Event description: {{events.$getRecord(params.eventID).title}}</li>
+        {% endraw %} 
+</ul>
+
+</div>
+<!-- /container -->
