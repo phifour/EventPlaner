@@ -2,11 +2,24 @@
 
 <div class="container" ng-controller="DetailsController">
 
+{% raw %}
+
 <ul>
-    {% raw %}<li>First name: {{params.eventID}}</li>  
+    <li>First name: {{params.eventID}}</li>  
    <li>Event description: {{events.$getRecord(params.eventID).title}}</li>
-        {% endraw %} 
+   <li>Event owner: {{events.$getRecord(params.eventID).user}}</li>
+   
+   
+    <ul>
+        <li ng-repeat="guest in events.$getRecord(params.eventID).guestlist">{{guest}}</li>
+    </ul>
+   
+  
 </ul>
+
+
+
+ {% endraw %} 
 
 </div>
 <!-- /container -->

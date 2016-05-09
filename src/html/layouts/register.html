@@ -5,29 +5,25 @@
         </div>
         <div class="panel-body">
             <form novalidate class="simple-form">
-            <label>Email</label><input type="text" ng-model="user.email" /> 
+            <label for="email">Email</label><input id="email" type="text" ng-model="user.email" /> 
     <!--<label>Password</label><input type="text" ng-model="user.password" /> -->
   
-     <label>
-      <input  ng-model="user.password1" type="password" placeholder="New password" maxlength="100" autofocus required>
-    </label>
-    <label>
-      <input  ng-model="user.password2" type="password" placeholder="Repeat password" maxlength="100" required>
-    </label>
-
-	<button type="submit" class="btn btn-primary" ng-click="createnewuser(user)">Create User</button>	
+     <label>Password</label><input  ng-model="user.password1" type="password" placeholder="New password" maxlength="100" autofocus required>
+    
+    <label>Repeat password</label> <input  ng-model="user.password2" type="password" placeholder="Repeat password" maxlength="100" required>
+   
   </form>
     
+<h3 ng-show="toshort(user.password1)">fewer than 16 characters</h3>
+<h3 ng-show="tolong(user.password1)">greater than 100 characters</h3>
+<h3 ng-show="nolowercaselatter(user.password1)">missing a lowercase letter</h3>
+<h3 ng-show="nolowercaselatter(user.password1)">missing a lowercase letter</h3>
+<h3 ng-show="nouppercaseletter(user.password1)">missing an uppercase letter</h3>
+<h3 ng-show="illegalchar(user.password1)">password contains illegal character</h3>
+<h3 ng-show="passwordsmatch(user.password1,user.password2)">password do not match</h3>
     
-<ul>
-    <li><h3 ng-show="toshort(user.password1)">fewer than 16 characters</h3></li>
-    <li><h3 ng-show="tolong(user.password1)">greater than 100 characters</h3></li>
-    <li><h3 ng-show="missingnumber(user.password1)">missing a number</h3></li>
-    <li><h3 ng-show="nolowercaselatter(user.password1)">missing a lowercase letter</h3></li>
-    <li><h3 ng-show="nouppercaseletter(user.password1)">missing an uppercase letter</h3></li>
-    <li><h3 ng-show="illegalchar(user.password1)">password contains illegal character</h3></li>
-    <li><h3 ng-show="passwordsmatch(user.password1,user.password2)">password do not match</h3></li>
-</ul>
+    
+	<button type="submit" class="btn btn-primary" ng-click="createnewuser(user)">Create User</button>	    
     
         </div>
     </div>

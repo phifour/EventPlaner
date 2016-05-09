@@ -56,37 +56,44 @@ https://mozilla.github.io/nunjucks/api.html {% include "shared/header.html" %} #
 
 <input type="text" class="form-control" placeholder="Search for an airplane" ng-model="selectedAirplane" typeahead="airplane as airplane.registration for airplane in airplanes | filter:$viewValue | limitTo:3">-->
 
-<h2>Events</h2>
+<center><h2>Events</h2></center>
 <div class="container-fluid">
 <table class="table table-bordered table-hover table-condensed">
     <tr style="font-weight: bold">
         <td style="width:35%">Name of event</td>
-        <td style="width:20%">Start & End</td>
         <td style="width:20%">Type</td>
-        <td style="width:25%">Edit</td>
+        <td style="width:20%">Start & End</td>
+        <!--<td style="width:25%">Edit</td>-->
     </tr>
     <tr ng-repeat="event in events">
-        <td>
-            {% raw %} <span>{{event.title}}  <input type="text" ng-model="event.mytext" ng-show="checkeditmode(event)"/>  {% endraw %} 
+        
+<td>
+    {% raw %} <span><a href="#/eventdetails/{{event.$id}}">{{event.title}}  </a><input type="text" ng-model="event.mytext" ng-show="checkeditmode(event)"/>  {% endraw %} 
         </span>
-        </td>
-        <td>
-            <span>
-            <label>Email</label><input type="text" ng-model="event.mytext" />  
-                    {% raw %} <a href="#/eventdetails/{{event.$id}}">more info</a>   {% endraw %} 
+</td>
+      
+<td>
+    {% raw %}<span>{{event.type}}</span> {% endraw %}
+</td>
+      
+<td>
+    <span>
+         {% raw %} <span>starts at {{parseDate(event.startdate)}} {{parseDate(event.starttime)}}, and at ends at {{parseDate(event.enddate)}} {% endraw %} 
         </span>
-        </td>
-        <td>
-            <span>
-         {% raw %} <span>starts at {{parseDate(event.startdate)}}, and at ends at {{parseDate(event.enddate)}} {% endraw %} 
-        </span>
-        </td>
-        <td style="white-space: nowrap">
-            <div class="buttons" ng-show="!rowform.$visible">
-                <button class="btn btn-primary" ng-click="editEvent(event)">edit</button>
-                <button class="btn btn-danger" ng-click="removeEvent(event)" ng-show="true">del</button>
-            </div>
-        </td>
+</td>
+
+
+
+        
+<!--<td style="white-space: nowrap">
+    <div class="buttons" ng-show="!rowform.$visible">
+        <button class="btn btn-primary" ng-click="editEvent(event)">edit</button>
+        <button class="btn btn-danger" ng-click="removeEvent(event)" ng-show="true">del</button>
+    </div>
+</td>-->
+        
+        
+        
     </tr>
 </table>
 </div> 

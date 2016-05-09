@@ -43,8 +43,15 @@ Location-->
    <button type="submit" class="btn btn-primary" ng-click="addguest(guest)">Add Guest</button>	
 
     <ul>
-         {% raw %}<li ng-repeat="guest in guestlist">{{guest}}</li>{% endraw %}
+         {% raw %}<li ng-repeat="guest in guestlist">{{guest}}
+         <button type="submit" class="btn btn-primary" ng-click="removeguest(guest)">Remove Guest</button>	
+         </li>
+         {% endraw %}
     </ul>
+
+  <div class="alert alert-danger">
+    <strong>Danger!</strong> This alert box could indicate a dangerous or potentially negative action.
+  </div>
 
 
 <label for="frmFavChocolate">Favorite Type of Chocolate</label>
@@ -109,9 +116,7 @@ Location-->
   <hr>
 
   <button type="submit" class="btn btn-primary" ng-click="addEvent(event)">Add Event</button>	
-  <!--<button type="button" class="btn btn-info" ng-click="toggleMode()">12H / 24H</button>-->
-  <!--<button type="button" class="btn btn-default" ng-click="update()">Set to 14:00</button>-->
-  <button type="button" class="btn btn-danger" ng-click="clear()">Clear</button>
+  <!--<button type="button" class="btn btn-danger" ng-click="clear()">Clear</button>-->
 
 
 

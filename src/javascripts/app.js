@@ -59,7 +59,7 @@ app.config(['$routeProvider',
     }]);
 
 
-app.controller('DetailsController', ['$scope', '$rootScope', '$firebaseArray', '$routeParams', 'accessFac', '$location', DetailsController])
+app.controller('DetailsController', ['$scope', '$rootScope', '$firebaseArray', '$routeParams', 'accessFac', '$location','$q', DetailsController])
 
 
 function getlocations() {
@@ -80,7 +80,37 @@ function getlocations() {
     return locations;
 }
 
-function DetailsController($scope, $rootScope, $firebaseArray, $routeParams, accessFac, $location) {
+function DetailsController($scope, $rootScope, $firebaseArray, $routeParams, accessFac, $location,$q) {
+    
+    
+// function asyncGreet(name) {
+//   var deferred = $q.defer();
+
+//   setTimeout(function() {
+//     deferred.notify('About to greet ' + name + '.');
+
+//     if (okToGreet(name)) {
+//       deferred.resolve('Hello, ' + name + '!');
+//     } else {
+//       deferred.reject('Greeting ' + name + ' is not allowed.');
+//     }
+//   }, 1000);
+
+//   return deferred.promise;
+// }
+    
+    
+//     var promise = asyncGreet('Robin Hood');
+// promise.then(function(greeting) {
+//   alert('Success: ' + greeting);
+// }, function(reason) {
+//   alert('Failed: ' + reason);
+// }, function(update) {
+//   alert('Got notification: ' + update);
+// });  
+    
+    
+    
     
 
     $scope.parseDate = function (x) {
@@ -93,7 +123,7 @@ function DetailsController($scope, $rootScope, $firebaseArray, $routeParams, acc
             //date.toString('yyyy-MM-dd'); 
              var myDate = new Date(date);
           
-            return myDate.toDateString();
+            return myDate.getHours();//toLocaleDateString(); //.toDateString();
         } else {
             return "Not availabe";
         }
@@ -109,6 +139,7 @@ function DetailsController($scope, $rootScope, $firebaseArray, $routeParams, acc
     $scope.authData = undefined;
 
     $scope.guest = "";
+    
     $scope.guestlist = [];
 
     $scope.selected = undefined;
@@ -118,7 +149,7 @@ function DetailsController($scope, $rootScope, $firebaseArray, $routeParams, acc
     
     $scope.login = $rootScope.login;
 
-    $scope.user = null;
+    $scope.user = undefined;
 	
     // Create our Firebase reference
     var ref = new Firebase("https://flickering-inferno-6917.firebaseio.com");
@@ -297,7 +328,6 @@ function DetailsController($scope, $rootScope, $firebaseArray, $routeParams, acc
     };
 
     $scope.loginwithpassword = function (user) {
-
         ref.authWithPassword({
             "email": user.email,
             "password": user.password
@@ -308,30 +338,46 @@ function DetailsController($scope, $rootScope, $firebaseArray, $routeParams, acc
                 console.log("Authenticated successfully with payload:", authData);
                 accessFac.access = true;
                 $scope.authData = authData;
+               
                 // $scope.apply;
                 // $location.path('/home');
                 // $scope.$digest();
                 $scope.$apply(function() {
-                 $location.path('/home');
+                     $scope.user = user;                
+                    $location.path('/home');
                 });
-
-
-
-
             }
         });
-
     };
 
-// $scope.$watch('authData',function(newValue, oldValue) {
-// 		if (newValue != oldValue){
-// 		  console.log("Event!!!");
-//           $location.path('/home');
-//            $scope.$apply();
 
 
-//         };
-// });
+
+
+
+
+
+
+// is the same as
+// 08
+// 	var promise = $http.get('/api/v1/movies/avengers');
+// 09
+	 
+// 10
+// 	promise.then(
+// 11
+// 	  function(payload) {
+// 12
+// 	    $scope.movieContent = payload.data;
+// 13
+// 	  });
+
+$scope.$watch('user',function(newValue, oldValue) {
+		if (newValue != oldValue){
+		  console.log("User changed!!!",$scope.user);
+          $scope.apply;
+        };
+});
 
     //  var authClient = new FirebaseSimpleLogin(ref, function(error, user) {
     //   if (error) {
@@ -374,9 +420,28 @@ function DetailsController($scope, $rootScope, $firebaseArray, $routeParams, acc
     
     $scope.addguest = function(guest){
         console.log("adding",guest);
-        $scope.guestlist.push(guest);  
-        console.log("guestlist",$scope.guestlist);
+        if($scope.guestlist.indexOf(guest) >= 0){
+            console.log("guest double entry");
+            BootstrapDialog.alert('I want banana!');
+        }else{
+             $scope.guestlist.push(guest);  
+        }
+      //  console.log("guestlist",$scope.guestlist);
     };
+        
+        
+        
+    $scope.removeguest = function (guest) {
+        console.log("adding", guest);
+        var index = $scope.guestlist.indexOf(guest);
+        if (index > -1) {
+            $scope.guestlist.splice(index, 1);
+        }
+        //  console.log("guestlist",$scope.guestlist);
+    };      
+        
+        
+             
         
     $scope.addEvent = function (event) {
         //var obj = { title: event.title, type: event.type,location: location };
@@ -389,17 +454,16 @@ function DetailsController($scope, $rootScope, $firebaseArray, $routeParams, acc
        
         event['user'] = "john beaver";//$scope.user.name; 
         event['guestlist'] = $scope.guestlist;
-        
+       
         $scope.guestlist = [];
         
         ref.child("events").push(event);
-        console.log("done something");    
         
-        $scope.$apply(function() {
+        console.log('compare dates',$scope.startdate<$scope.startdate)
+        
+        //$scope.$apply(function() {
                  $location.path('/home');
-         });
-    
-    
+         //});
     };
 
 };
