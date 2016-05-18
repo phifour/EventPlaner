@@ -2,29 +2,46 @@
 
 <div class="container" ng-controller="DetailsController">
 
-{% raw %}
+    {% raw %}
 
-<ul>
-   <li>First name: {{params.eventID}}</li>  
-   <li>Event description: {{events.$getRecord(params.eventID).title}}</li>
-   <li>Event owner: {{events.$getRecord(params.eventID).user}}</li>
-   
-   
-    <ul>
-        <li ng-repeat="guest in events.$getRecord(params.eventID).guestlist">{{guest}}</li>
-    </ul>
-   
-   
-   
-   
-   
-   
-  
-</ul>
+    <table class="table table-bordered table-hover table-condensed">
+        <thead class="thead-inverse">
+            <tr>
+                <th>Name</th>
+                <th>{{events.$getRecord(params.eventID).title}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Type</td>
+                <td>{{events.$getRecord(params.eventID).type}}</td>
+            </tr>
+            <tr>
+                <td>Location</td>
+                <td>{{events.$getRecord(params.eventID).location}}</td>
+            </tr>
+            <tr>
+                <td><span>Starts at</span></td>
+                <td>{{parseDate(events.$getRecord(params.eventID).startdate)}}</td>
+            </tr>
+            <tr>
+                <td><span>Ends at</span></td>
+                <td>{{parseDate(events.$getRecord(params.eventID).enddate)}}</td>
+            </tr>
+            <tr>
+                <td><span>Guests</span></td>
+                <td>
+                    <ul>
+                        <li ng-repeat="guest in events.$getRecord(params.eventID).guestlist">{{guest}}</li>
+                    </ul>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
 
 
-
- {% endraw %} 
+    {% endraw %}
 
 </div>
 <!-- /container -->

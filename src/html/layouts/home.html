@@ -2,59 +2,6 @@
 https://mozilla.github.io/nunjucks/api.html {% include "shared/header.html" %} #} {% block content %} {% include "shared/header.html"
 %}
 
-    <!--<div class="container-fluid">
-<div ng-controller="MyCtrl">
-    <autocomplete ng-model="yourchoice" data="movies" on-type="updateMovies"></autocomplete>
-</div>
-
-</div>
-
-
-<label for="frmEmailA">Email</label>
-<input type="email" name="email" id="frmEmailA" placeholder="name@example.com" required autocomplete="email">
-
-<form id="form" role="form">
-
-    <div class="form-group move-down">
-        <label for="Autocomplete">Generic Autocomplete</label>
-        <input type="text" id="Autocomplete" class="form-control" ng-autocomplete="result1" details="details1" options="options1"
-        />
-    </div>
-    <div>result: {{result}}</div>
-
-    <div class="form-group move-down">
-        <label for="Autocomplete">Autocomplete - Cities in Canada</label>
-        <input type="text" id="Autocomplete" class="form-control" ng-autocomplete="result2" details="details2" options="options2"
-        />
-    </div>
-    <div>result: {{result}}</div>
-
-    <div class="form-group move-down">
-        <label for="Autocomplete">Autocomplete - Establishments in the UK</label>
-        <input type="text" id="Autocomplete" class="form-control" ng-autocomplete="result3" details="details3" options="options3"
-        />
-    </div>
-    <div>result: {{result}}</div>
-</form>
-
-
-
-<div ng-controller="DetailsController">
-    {% raw %}
-    <h1>xxx {{login}}</h1>{% endraw %}
-
-    <div class="container-fluid">
-        <div class="form-group">
-            <label for="states">Search for US States</label>
-            <input name="states" id="states" type="text" placeholder="enter a state" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8"
-            class="form-control">
-        </div>
-        <button class="btn btn-success" type="submit">Submit</button>
-    </div>
-
-</div>
-
-<input type="text" class="form-control" placeholder="Search for an airplane" ng-model="selectedAirplane" typeahead="airplane as airplane.registration for airplane in airplanes | filter:$viewValue | limitTo:3">-->
 
 <center><h2>Events</h2></center>
 <div class="container-fluid">
@@ -65,7 +12,7 @@ https://mozilla.github.io/nunjucks/api.html {% include "shared/header.html" %} #
         <td style="width:20%">Start & End</td>
         <!--<td style="width:25%">Edit</td>-->
     </tr>
-    <tr ng-repeat="event in events">
+    <tr ng-repeat="event in events|filter:search.name">
         
 <td>
     {% raw %} <span><a href="#/eventdetails/{{event.$id}}">{{event.title}}  </a><input type="text" ng-model="event.mytext" ng-show="checkeditmode(event)"/>  {% endraw %} 
@@ -78,21 +25,10 @@ https://mozilla.github.io/nunjucks/api.html {% include "shared/header.html" %} #
       
 <td>
     <span>
-         {% raw %} <span>starts at {{parseDate(event.startdate)}} {{parseDate(event.starttime)}}, and at ends at {{parseDate(event.enddate)}} {% endraw %} 
+         {% raw %} <span>starts at {{parseDate(event.startdate)}}, ends at {{parseDate(event.enddate)}} {% endraw %} 
         </span>
 </td>
-
-
-
-        
-<!--<td style="white-space: nowrap">
-    <div class="buttons" ng-show="!rowform.$visible">
-        <button class="btn btn-primary" ng-click="editEvent(event)">edit</button>
-        <button class="btn btn-danger" ng-click="removeEvent(event)" ng-show="true">del</button>
-    </div>
-</td>-->
-        
-        
+                
         
     </tr>
 </table>

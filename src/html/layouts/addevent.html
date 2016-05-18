@@ -11,35 +11,32 @@ Location-->
 <div ng-controller="DatepickerDemoCtrl">
     <div ng-controller="TimepickerDemoCtrl">
             <div class="container" ng-controller="DetailsController">
-   <!--type wird vom browser gespeichert-->
    
    <form>
   <legend>Event Info</legend>
   <div class="form-group">
-    <!--<input type="text" autofocus placeholder="my birthday party" ng-model="event.title" /> -->
-    <label>Name of Event</label>
-    <input type="text" ng-model="event.title" autofocus placeholder="peters party">
+    <label  for="frmEventName">Name</label>
+    <input type="text" ng-model="event.title" autofocus placeholder="peters party" required id="frmEventName">
   </div>
 
   <div class="form-group">
-    <!--<input type="text" autofocus placeholder="my birthday party" ng-model="event.title" /> -->
-    <label>Type of event</label>
-    <input type="text" ng-model="event.type" placeholder="party">
+    <label for="frmEventType">Type</label>
+    <input type="text" ng-model="event.type" placeholder="party" required id="frmEventType">
   </div>
 
   <div class="form-group">
-    <!--<input type="text" autofocus placeholder="my birthday party" ng-model="event.title" /> -->
-	<label>Location of event</label><input type="text" placeholder="123 Any Street" ng-model="event.location" /> 
+    <label for="frmAddressS">Location</label>
+    <input name="ship-address" required id="frmAddressS" placeholder="123 Any Street" ng-model="event.location" autocomplete="street-address">
   </div>
 
   <div class="form-group">
-    <!--<input type="text" autofocus placeholder="my birthday party" ng-model="event.title" /> -->
-	<label>Host of event</label><input type="text" ng-model="event.host" /> 
+    <label for="frmHost">Host</label>
+	<input type="text" ng-model="event.host" placeholder="perters home" required id="frmHost" /> 
   </div>
 
 </form>
      
-   <label>Guest</label><input type="text" placeholder="John Smith" ng-model="guest" /> 
+   <label>Guests</label><input type="text" placeholder="John Smith" ng-model="guest" /> 
    <button type="submit" class="btn btn-primary" ng-click="addguest(guest)">Add Guest</button>	
 
     <ul>
@@ -49,21 +46,6 @@ Location-->
          {% endraw %}
     </ul>
 
-
-<label for="frmFavChocolate">Favorite Type of Chocolate</label>
-<input type="text"  ng-model="event.choc" id="frmFavChocolate" list="chocType">
-<datalist id="chocType">
-  <option value="white">
-  <option value="milk">
-  <option value="dark">
-</datalist>
-
-<label for="frmAddressS">Address</label>
-<input type="text" name="ship-address" required id="frmAddressS" placeholder="123 Any Street" autocomplete="shipping street-address">
-
-
-    <label for="frmAddressS">Address</label>
-    <input name="ship-address" required id="frmAddressS" placeholder="123 Any Street" autocomplete="street-address">
 
     <h4>Start date</h4>
     <div style="display:inline-block; min-height:290px;">
@@ -84,37 +66,27 @@ Location-->
     <button type="button" class="btn btn-sm btn-default" ng-click="toggleMin()" uib-tooltip="After today restriction">Min date</button>-->
 
 
-  <uib-timepicker ng-model="starttime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
+  <uib-timepicker ng-model="startdate" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
   
-  <uib-timepicker ng-model="endtime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>   
+  <uib-timepicker ng-model="enddate" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>   
 
    {% raw %}
-   <pre class="alert alert-info">Events starts at {{startdate | date:'fullDate' }} {{enddate | date:'fullDate' }}   {{starttime | date:'shortTime' }} {{endtime | date:'shortTime' }}</pre>
+   <pre class="alert alert-info">Events starts at {{startdate | date:'fullDate' }} {{enddate | date:'fullDate' }}   {{startdate | date:'shortTime' }} {{enddate | date:'shortTime' }}</pre>
    {% endraw %} 
-
-
-
-
-  <!--<div class="row"> 
-      
-    <div class="col-xs-6">
-        Hours step is:
-      <select class="form-control" ng-model="hstep" ng-options="opt for opt in options.hstep"></select>
-    </div>
-    
-    <div class="col-xs-6">
-        Minutes step is:
-      <select class="form-control" ng-model="mstep" ng-options="opt for opt in options.mstep"></select>
-    </div>
-    
-  </div>-->
 
   <hr>
 
+
+  <div class="alert alert-danger" ng-show="stringmissing(event.title)"> <strong>Name</strong> of event missing </div>
+  <div class="alert alert-danger" ng-show="stringmissing(event.type)"> <strong>Type</strong> of event missing </div>
+  <div class="alert alert-danger" ng-show="stringmissing(event.host)"> <strong>Host</strong> of event missing </div>
+  <div class="alert alert-danger" ng-show="stringmissing(startdate)"> <strong>Startdate</strong> is missing </div>
+  <div class="alert alert-danger" ng-show="stringmissing(enddate)"> <strong>End date</strong> is missing </div>
+
   <button type="submit" class="btn btn-primary" ng-click="addEvent(event)">Add Event</button>	
+  <button type="submit" class="btn btn-primary" ng-click="showuser()">Show User</button>	
+  
   <!--<button type="button" class="btn btn-danger" ng-click="clear()">Clear</button>-->
-
-
 
 </div>
 </div>

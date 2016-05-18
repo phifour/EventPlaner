@@ -1,15 +1,20 @@
 import './modules'
 
-var app = angular.module('app', ['ngRoute', 'firebase', 'ui.bootstrap','autocomplete']);
+var app = angular.module('app', ['ngRoute', 'firebase', 'ui.bootstrap']);
 
 app.factory('accessFac', function () {
     var obj = {}
     this.access = false;
+    this.username = undefined;
     obj.getPermission = function () {    //set the permission to true
         this.access = true;
     }
     obj.checkPermission = function () {
         return this.access;             //returns the users permission level
+    }
+    
+    obj.getuser = function(){
+        return this.username;
     }
     return obj;
 });
@@ -82,57 +87,37 @@ function getlocations() {
 
 function DetailsController($scope, $rootScope, $firebaseArray, $routeParams, accessFac, $location,$q) {
     
-    
-// function asyncGreet(name) {
-//   var deferred = $q.defer();
-
-//   setTimeout(function() {
-//     deferred.notify('About to greet ' + name + '.');
-
-//     if (okToGreet(name)) {
-//       deferred.resolve('Hello, ' + name + '!');
-//     } else {
-//       deferred.reject('Greeting ' + name + ' is not allowed.');
-//     }
-//   }, 1000);
-
-//   return deferred.promise;
-// }
-    
-    
-//     var promise = asyncGreet('Robin Hood');
-// promise.then(function(greeting) {
-//   alert('Success: ' + greeting);
-// }, function(reason) {
-//   alert('Failed: ' + reason);
-// }, function(update) {
-//   alert('Got notification: ' + update);
-// });  
-    
-    
-    
-    
+     
 
     $scope.parseDate = function (x) {
-
         if (x != null) {
-
-            var date = Date.parse(x);
-
-            console.log('pasing', date);
-            //date.toString('yyyy-MM-dd'); 
-             var myDate = new Date(date);
-          
-            return myDate.getHours();//toLocaleDateString(); //.toDateString();
+            var date = Date.parse(x);          
+            var myDate = new Date(date);
+            return myDate.toLocaleTimeString();
+            //toTimeString();//toUTCString();//.toLocaleDateString();//toLocaleDateString(); //.toDateString();
         } else {
             return "Not availabe";
         }
     }
 
 
+    // $scope.parseTime = function (x) {
+    //     if (x != null) {
+    //         var date = Date.parse(x);
+    //         //date.toString('yyyy-MM-dd'); 
+    //          var myDate = new Date(date);          
+    //         return myDate.toUTCString();;//Hours() + ':'+myDate.getMinutes();//toLocaleDateString(); //.toDateString();
+    //     } else {
+    //         return "Not availabe";
+    //     }
+    // }
+
+
     $scope.getAccess = function () {
         accessFac.getPermission();       //call the method in acccessFac to allow the user permission.
     }
+
+   $scope.username = accessFac.getuser();
 
     $scope.params = $routeParams;
 
@@ -141,15 +126,7 @@ function DetailsController($scope, $rootScope, $firebaseArray, $routeParams, acc
     $scope.guest = "";
     
     $scope.guestlist = [];
-
-    $scope.selected = undefined;
-
-    $scope.login = 'Two birds killed with one stone!'
-    //$scope.login = "No Login";
     
-    $scope.login = $rootScope.login;
-
-    $scope.user = undefined;
 	
     // Create our Firebase reference
     var ref = new Firebase("https://flickering-inferno-6917.firebaseio.com");
@@ -179,46 +156,78 @@ function DetailsController($scope, $rootScope, $firebaseArray, $routeParams, acc
         }
     }
 
+    $scope.stringmissing = function (x) {
+        if (x== undefined){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     $scope.toshort = function (x) {
+        if (x== undefined){
+            return false;
+        }else{
         if (x.length < 16) { return true; }
         else {
             return false;
         }
+        }
     }
    
    $scope.tolong = function (x) {
-        if (x.length > 100) { return true; }
+        if (x== undefined){
+            return true;
+        }else{
+            if (x.length > 100) { return true; }
         else {
             return false;
+        }
         }
     }
 
 
    $scope.missingnumber = function (x) {
+        if (x== undefined){
+            return true;
+        }else{
         if (x.match(/\d/g)) {return false; }
         else {
             return true;
         }
+        }
     }
 
    $scope.nolowercaselatter = function (x) {
+        if (x== undefined){
+            return true;
+        }else{
         if (x.match(/[a-z]/g)) { return false; }
         else {
             return true;
         }
+        }
     }
 
    $scope.nouppercaseletter = function (x) {
-        if (x.match(/[A-Z]/g)) { return false; }
-        else {
-            return true;
-        }
-    }
+       if (x == undefined) {
+           return true;
+       } else {
+           if (x.match(/[A-Z]/g)) { return false; }
+           else {
+               return true;
+           }
+       }
+   }
     
    $scope.illegalchar = function (x) {
+       if (x == undefined) {
+           return true;
+           }else{
        if (x.match(/[\!\@\#\$\%\^\&\*]/g)) { return true; }
        else {
            return false;
+       }
        }
    }
     
@@ -262,11 +271,9 @@ function DetailsController($scope, $rootScope, $firebaseArray, $routeParams, acc
                 console.log(authData.facebook.email);
                 console.log(authData.facebook.user_likes);
                 console.log(authData.uid);
-       
-                //$scope.login =  getName(authData);
+      
                 $rootScope.login = getName(authData);
-
-
+                
                 $scope.user = {
                     "id": authData.uid,
                     "name": getName(authData),
@@ -337,13 +344,8 @@ function DetailsController($scope, $rootScope, $firebaseArray, $routeParams, acc
             } else {
                 console.log("Authenticated successfully with payload:", authData);
                 accessFac.access = true;
-                $scope.authData = authData;
-               
-                // $scope.apply;
-                // $location.path('/home');
-                // $scope.$digest();
-                $scope.$apply(function() {
-                     $scope.user = user;                
+                accessFac.username = user.email;                          
+                $scope.$apply(function() {              
                     $location.path('/home');
                 });
             }
@@ -351,33 +353,12 @@ function DetailsController($scope, $rootScope, $firebaseArray, $routeParams, acc
     };
 
 
-
-
-
-
-
-
-
-// is the same as
-// 08
-// 	var promise = $http.get('/api/v1/movies/avengers');
-// 09
-	 
-// 10
-// 	promise.then(
-// 11
-// 	  function(payload) {
-// 12
-// 	    $scope.movieContent = payload.data;
-// 13
-// 	  });
-
-$scope.$watch('user',function(newValue, oldValue) {
-		if (newValue != oldValue){
-		  console.log("User changed!!!",$scope.user);
-          $scope.apply;
-        };
-});
+// $scope.$watch('user',function(newValue, oldValue) {
+// 		if (newValue != oldValue){
+// 		  console.log("User changed!!!",$scope.user); 
+//           $scope.useremail = $scope.user.email;
+//         };
+// });
 
     //  var authClient = new FirebaseSimpleLogin(ref, function(error, user) {
     //   if (error) {
@@ -403,135 +384,59 @@ $scope.$watch('user',function(newValue, oldValue) {
     
     //     authClient.login("facebook");
 
-  
-  
-    // create a synchronized array
-    // click on `index.html` above to see it used in the DOM!
-  
     $scope.events = $firebaseArray(ref.child("events"));     
-        
-    // var eventID = $routeParams.eventID;
-    // $scope.events_array = $firebaseArray($rootScope.ref);    	 	
-    // $scope.eventID = $routeParams.eventID;
-    // $scope.events = $rootScope.events; 
-    // $scope.x = 	$scope.events_array.$getRecord(eventID);
-    
-    //console.log('XXXXXXXXXXXXXXXXXXXXXXX',$scope.events);
-    
-    $scope.addguest = function(guest){
-        console.log("adding",guest);
-        if($scope.guestlist.indexOf(guest) >= 0){
-            console.log("guest double entry");
-            BootstrapDialog.alert('I want banana!');
-        }else{
-             $scope.guestlist.push(guest);  
+            
+    $scope.addguest = function (guest) {
+        if (guest != undefined) {
+            if ($scope.guestlist.indexOf(guest) >= 0) {
+                //console.log("guest double entry");
+            } else {
+                $scope.guestlist.push(guest);
+            }
         }
-      //  console.log("guestlist",$scope.guestlist);
     };
         
         
         
     $scope.removeguest = function (guest) {
-        console.log("adding", guest);
         var index = $scope.guestlist.indexOf(guest);
         if (index > -1) {
             $scope.guestlist.splice(index, 1);
         }
-        //  console.log("guestlist",$scope.guestlist);
     };      
         
-        
+    $scope.showuser = function () {
+        console.log("adding event", $scope.useremail, $scope.authData, $scope.user);
+        console.log("user", accessFac.getuser());
+    };
              
-        
     $scope.addEvent = function (event) {
-        //var obj = { title: event.title, type: event.type,location: location };
-	
-        event['starttime'] = $scope.starttime.toString();
-        event['endtime'] = $scope.endtime.toString();
-        
-        event['startdate'] = $scope.startdate.toString();;
-        event['enddate'] = $scope.enddate.toString();
-       
-        event['user'] = "john beaver";//$scope.user.name; 
-        event['guestlist'] = $scope.guestlist;
-       
-        $scope.guestlist = [];
-        
-        ref.child("events").push(event);
-        
-        console.log('compare dates',$scope.startdate<$scope.startdate)
-        
-        //$scope.$apply(function() {
-                 $location.path('/home');
-         //});
-    };
 
-};
-
-app.directive('ngAutocomplete', ['$parse', ngAutocomplete]);
+// && event.startdate != undefined && event.enddate != undefined
 
 
-function ngAutocomplete($parse) {
-    return {
 
-        scope: {
-            details: '=',
-            ngAutocomplete: '=',
-            options: '='
-        },
 
-        link: function (scope, element, attrs, model) {
+        if (event.title != undefined && event.type != undefined && event.host != undefined) {
 
-            //options for autocomplete
-            var opts
+            console.log("adding event");
 
-            //convert options provided to opts
-            var initOpts = function () {
-                opts = {}
-                if (scope.options) {
-                    if (scope.options.types) {
-                        opts.types = []
-                        opts.types.push(scope.options.types)
-                    }
-                    if (scope.options.bounds) {
-                        opts.bounds = scope.options.bounds
-                    }
-                    if (scope.options.country) {
-                        opts.componentRestrictions = {
-                            country: scope.options.country
-                        }
-                    }
-                }
-            }
-            initOpts()
+            event['startdate'] = $scope.startdate.toString();;
+            event['enddate'] = $scope.enddate.toString();
 
-            //create new autocomplete
-            //reinitializes on every change of the options provided
-            var newAutocomplete = function () {
-                scope.gPlace = new google.maps.places.Autocomplete(element[0], opts);
-                google.maps.event.addListener(scope.gPlace, 'place_changed', function () {
-                    scope.$apply(function () {
-                        //              if (scope.details) {
-                        scope.details = scope.gPlace.getPlace();
-                        //              }
-                        scope.ngAutocomplete = element.val();
-                    });
-                })
-            }
-            newAutocomplete()
+            event['user'] =  $scope.username; 
+            event['guestlist'] = $scope.guestlist;
 
-            //watch options provided to directive
-            scope.watchOptions = function () {
-                return scope.options
-            };
-            scope.$watch(scope.watchOptions, function () {
-                initOpts()
-                newAutocomplete()
-                element[0].value = '';
-                scope.ngAutocomplete = element.val();
-            }, true);
+            $scope.guestlist = [];
+
+            ref.child("events").push(event);
+            //$scope.$apply(function() {
+            $location.path('/home');
+            //});
         }
+
     };
+
 };
 
 
@@ -671,19 +576,6 @@ function MyCtrl($scope, MovieRetriever){
 
   $scope.movies = getlocations();
   
-  //['A','AA','B','BBC','BBA','C'];
-  
-  // MovieRetriever.getmovies("...");
-  
-  
-//   $scope.movies.then(function(data){
-//     $scope.movies = data;
-//   });
-
-//   $scope.getmovies = function(){
-//     return $scope.movies;
-//   }
-
   $scope.doSomething = function(typedthings){
     console.log("Do something like reload data with this: " + typedthings );
     $scope.newmovies = MovieRetriever.getmovies(typedthings);
@@ -697,31 +589,3 @@ function MyCtrl($scope, MovieRetriever){
   }
 
 };
-
-// app.factory('MovieRetriever', ['$http', '$q', '$timeout', MovieRetriever]);
-
-// function MovieRetriever($http, $q, $timeout){
-//   var MovieRetriever = new Object();
-
-//   MovieRetriever.getmovies = function(i) {
-//     var moviedata = $q.defer();
-//     var movies;
-
-//     var someMovies = ["The Wolverine", "The Smurfs 2", "The Mortal Instruments: City of Bones", "Drinking Buddies", "All the Boys Love Mandy Lane", "The Act Of Killing", "Red 2", "Jobs", "Getaway", "Red Obsession", "2 Guns", "The World's End", "Planes", "Paranoia", "The To Do List", "Man of Steel"];
-
-//     var moreMovies = ["The Wolverine", "The Smurfs 2", "The Mortal Instruments: City of Bones", "Drinking Buddies", "All the Boys Love Mandy Lane", "The Act Of Killing", "Red 2", "Jobs", "Getaway", "Red Obsession", "2 Guns", "The World's End", "Planes", "Paranoia", "The To Do List", "Man of Steel", "The Way Way Back", "Before Midnight", "Only God Forgives", "I Give It a Year", "The Heat", "Pacific Rim", "Pacific Rim", "Kevin Hart: Let Me Explain", "A Hijacking", "Maniac", "After Earth", "The Purge", "Much Ado About Nothing", "Europa Report", "Stuck in Love", "We Steal Secrets: The Story Of Wikileaks", "The Croods", "This Is the End", "The Frozen Ground", "Turbo", "Blackfish", "Frances Ha", "Prince Avalanche", "The Attack", "Grown Ups 2", "White House Down", "Lovelace", "Girl Most Likely", "Parkland", "Passion", "Monsters University", "R.I.P.D.", "Byzantium", "The Conjuring", "The Internship"]
-
-//     if(i && i.indexOf('T')!=-1)
-//       movies=moreMovies;
-//     else
-//       movies=moreMovies;
-
-//     $timeout(function(){
-//       moviedata.resolve(movies);
-//     },1000);
-
-//     return moviedata.promise
-//   }
-
-//   return MovieRetriever;
-// };

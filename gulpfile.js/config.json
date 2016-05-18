@@ -30,18 +30,8 @@
       "extractSharedJs": false
     },
     "css": {
-      "src": "stylesheets",
-      "dest": "stylesheets",
-      "autoprefixer": {
-        "browsers": ["last 3 version"]
-      },
-      "sass": {
-        "indentedSyntax": true,
-        "includePaths": [
-          "./node_modules/normalize.css"
-        ]
-      },
-      "extensions": ["sass", "scss", "css"]
+      "src": "css",
+      "dest": "css"
     },
 
     "html": {
@@ -60,10 +50,21 @@
       "dest": "images",
       "extensions": ["jpg", "png", "svg", "gif"]
     },
-
+    
+    "dependencies": {
+      "src": "dependencies",
+      "dest": "dependencies",
+      "extensions": ["js"]
+    },
+    
     "fonts": {
       "src": "fonts",
       "dest": "fonts",
+      "includePaths": [
+          "fonts/glyphicons-halflings-regular.ttf",
+          "fonts/glyphicons-halflings-regular.woff",
+          "fonts/glyphicons-halflings-regular.woff2"
+        ],
       "extensions": ["woff2", "woff", "eot", "ttf", "svg"]
     },
 
