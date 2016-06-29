@@ -1,0 +1,7 @@
+
+> gulp-starter@3.1.0 production C:\Users\wfrisch\projects\horror
+> gulp production "-"
+
+[12:28:41] Using gulpfile ~\projects\horror\gulpfile.js
+[12:28:41] Task '-' is not in your gulpfile
+[12:28:41] Please check the documentation for proper gulpfile formatting
