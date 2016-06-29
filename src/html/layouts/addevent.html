@@ -10,84 +10,136 @@ Location-->
 
 <div ng-controller="DatepickerDemoCtrl">
     <div ng-controller="TimepickerDemoCtrl">
-            <div class="container" ng-controller="DetailsController">
-   
-   <form>
-  <legend>Event Info</legend>
-  <div class="form-group">
-    <label  for="frmEventName">Name</label>
-    <input type="text" ng-model="event.title" autofocus placeholder="peters party" required id="frmEventName">
-  </div>
+        <div class="container" ng-controller="AddEventController">
 
-  <div class="form-group">
-    <label for="frmEventType">Type</label>
-    <input type="text" ng-model="event.type" placeholder="party" required id="frmEventType">
-  </div>
+            <form role="form">
+                <legend>Add your event</legend>
+                <div class="form-group">
+                    <label for="frmEventName">Name</label>
+                    <input type="text" class="form-control" ng-model="event.title" autofocus placeholder="peters party" id="frmEventName">
+                </div>
 
-  <div class="form-group">
-    <label for="frmAddressS">Location</label>
-    <input name="ship-address" required id="frmAddressS" placeholder="123 Any Street" ng-model="event.location" autocomplete="street-address">
-  </div>
+                <div class="form-group">
+                    <label for="frmEventType">Type</label>
+                    <input type="text" class="form-control" ng-model="event.type" placeholder="party" id="frmEventType">
+                </div>
 
-  <div class="form-group">
-    <label for="frmHost">Host</label>
-	<input type="text" ng-model="event.host" placeholder="perters home" required id="frmHost" /> 
-  </div>
+                <div class="form-group">
+                    <label for="frmHost">Host</label>
+                    <input type="text" class="form-control" ng-model="event.host" placeholder="perters home" id="frmHost" />
+                </div>
 
-</form>
-     
-   <label>Guests</label><input type="text" placeholder="John Smith" ng-model="guest" /> 
-   <button type="submit" class="btn btn-primary" ng-click="addguest(guest)">Add Guest</button>	
-
-    <ul>
-         {% raw %}<li ng-repeat="guest in guestlist">{{guest}}
-         <button type="submit" class="btn btn-primary" ng-click="removeguest(guest)">Remove Guest</button>	
-         </li>
-         {% endraw %}
-    </ul>
+                <label for="frmGuest">Guests</label>
+                <input type="text" class="form-control" placeholder="John Smith" ng-model="guest" equired id="frmGuest" />
+                <br>
+                <button type="submit" class="btn btn-primary btn-block" ng-click="addguest(guest)">Add Guest</button>
 
 
-    <h4>Start date</h4>
-    <div style="display:inline-block; min-height:290px;">
-      <uib-datepicker ng-model="startdate" class="well well-sm" datepicker-options="options"></uib-datepicker>
+                {% raw %}
+
+                <!--<div class="container">-->
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Guestlist</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="guest in event.guestlist">
+                                <td>{{guest}}</td>
+                                <td>
+                                    <button type="submit" class="btn btn-primary btn-block" ng-click="removeguest(guest)">Remove {{guest}}</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                <!--</div>-->
+
+
+                <!--<ul>
+                    <li ng-repeat="guest in event.guestlist">{{guest}}
+                        <button type="submit" class="btn btn-primary" ng-click="removeguest(guest)">Remove Guest</button>
+                    </li>
+                </ul>-->
+                {% endraw %}
+
+
+
+                <div class="form-group">
+                    <label for="frmAddressS">Location</label>
+                    <input name="ship-address" class="form-control" id="frmAddressS" placeholder="123 Any Street" ng-model="event.location" autocomplete="street-address">
+                    <h5>No location yet ? Try Foursquare</h5>
+                    <label for="foursquare-keyword">Keyword</label>
+                    <input name="foursquare-keyword" class="form-control" placeholder="e.g. sushi, donuts" ng-model="foursquarekeyword" autocomplete="foursquare-keyword">
+                    <br>
+                    <label for="foursquare-city">City</label>
+                    <select ng-model="fourquarecity" class="form-control" ng-options="x for x in foursquarecities" ng-init="fourquarecity = 'Vienna,AT'"></select>
+                    <br>
+                    <button type="submit" class="btn btn-primary btn-block" ng-click="foursquare(foursquarekeyword,fourquarecity)">Get FourSquare Recommendations</button>
+                    <br>
+                    <!-- -->
+                    {% raw %}
+                    <button type="submit" class="btn btn-primary btn-block" ng-show="foursquarestate.visible" ng-click="changestate(foursquarestate)">{{foursquarestate.name}}</button>
+                    <!--<button type="submit" class="btn btn-primary" data-toggle="collapse" data-target="#demo" ng-show="foursquarestate.show" >{{foursquarestate.name}}</button>-->
+                    {% endraw %}
+                </div>
+
+            </form>
+
+            <div class="collapse in" ng-show="foursquarestate.show">
+
+                {% raw %}
+                <div class="row">
+                    <div ng-repeat="img in images" class="col-sm-4">
+                        <a href="{{img.link}}">
+                            <h4>{{img['name']}}</h4>
+                        </a>
+                        <img src="{{img.url}}" alt="{{img.name}}">
+                        <h5>{{img['address']}}</h5>
+                        <button type="submit" class="btn btn-primary btn-block" ng-click="usefoursquareloc(img['name'],img['address'])">Use this location</button>
+                    </div>
+                </div>
+                {% endraw %}
+
+
+            </div>
+            <!--</div>-->
+
+
+            <div class="container">
+
+                <h4>Start date</h4>
+                <!--<div style="display:inline-block; min-height:290px;">-->
+                <uib-datepicker ng-model="startdate" class="well well-sm" datepicker-options="options"></uib-datepicker>
+                <h4>Start time</h4>
+                <uib-timepicker ng-model="startdate" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
+                <!--</div>-->
+
+                <h4>End date</h4>
+                <!--<div style="display:inline-block; min-height:290px;">-->
+                <uib-datepicker ng-model="enddate" class="well well-sm" datepicker-options="options"></uib-datepicker>
+                <h4>End time</h4>
+                <uib-timepicker ng-model="enddate" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
+                <!--</div>-->
+
+            </div>
+
+
+            <hr /> {% raw %}
+            <pre class="alert alert-info">{{event.name}} starts on {{startdate | date:'fullDate' }} at {{startdate | date:'shortTime' }} and ens on {{enddate | date:'fullDate' }} at {{enddate | date:'shortTime' }} </pre>            {% endraw %}
+
+            <div class="alert alert-danger" ng-show="stringmissing(event.title)"> <strong>Name</strong> of event missing </div>
+            <div class="alert alert-danger" ng-show="stringmissing(event.type)"> <strong>Type</strong> of event missing </div>
+            <div class="alert alert-danger" ng-show="stringmissing(event.host)"> <strong>Host</strong> of event missing </div>
+            <div class="alert alert-danger" ng-show="stringmissing(event.location)"> <strong>Location</strong> is missing </div>
+            <div class="alert alert-danger" ng-show="stringmissing(startdate)"> <strong>Startdate</strong> is missing </div>
+            <div class="alert alert-danger" ng-show="stringmissing(enddate)"> <strong>End date</strong> is missing </div>
+
+            <div class="alert alert-danger" ng-show="checkdateorder(startdate,enddate)"> <strong>Start date can't be </strong>after End date </div>
+
+            <button type="submit" class="btn btn-primary btn-block" ng-click="addEvent(event)">Add Event</button>
+
+        </div>
     </div>
-
-    <h4>End date</h4>
-    <div style="display:inline-block; min-height:290px;">
-      <uib-datepicker ng-model="enddate" class="well well-sm" datepicker-options="options"></uib-datepicker>
-    </div>
-
-
-
-    <hr />
-    <!--<button type="button" class="btn btn-sm btn-info" ng-click="today()">Today</button>
-    <button type="button" class="btn btn-sm btn-default" ng-click="setDate(2009, 7, 24)">2009-08-24</button>
-    <button type="button" class="btn btn-sm btn-danger" ng-click="clear()">Clear</button>
-    <button type="button" class="btn btn-sm btn-default" ng-click="toggleMin()" uib-tooltip="After today restriction">Min date</button>-->
-
-
-  <uib-timepicker ng-model="startdate" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
-  
-  <uib-timepicker ng-model="enddate" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>   
-
-   {% raw %}
-   <pre class="alert alert-info">Events starts at {{startdate | date:'fullDate' }} {{enddate | date:'fullDate' }}   {{startdate | date:'shortTime' }} {{enddate | date:'shortTime' }}</pre>
-   {% endraw %} 
-
-  <hr>
-
-
-  <div class="alert alert-danger" ng-show="stringmissing(event.title)"> <strong>Name</strong> of event missing </div>
-  <div class="alert alert-danger" ng-show="stringmissing(event.type)"> <strong>Type</strong> of event missing </div>
-  <div class="alert alert-danger" ng-show="stringmissing(event.host)"> <strong>Host</strong> of event missing </div>
-  <div class="alert alert-danger" ng-show="stringmissing(startdate)"> <strong>Startdate</strong> is missing </div>
-  <div class="alert alert-danger" ng-show="stringmissing(enddate)"> <strong>End date</strong> is missing </div>
-
-  <button type="submit" class="btn btn-primary" ng-click="addEvent(event)">Add Event</button>	
-  <button type="submit" class="btn btn-primary" ng-click="showuser()">Show User</button>	
-  
-  <!--<button type="button" class="btn btn-danger" ng-click="clear()">Clear</button>-->
-
-</div>
-</div>
 </div>

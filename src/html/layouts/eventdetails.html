@@ -1,35 +1,41 @@
 {% include "shared/header.html" %}
 
-<div class="container" ng-controller="DetailsController">
+<div class="container" ng-controller="MainController">
 
     {% raw %}
 
     <table class="table table-bordered table-hover table-condensed">
         <thead class="thead-inverse">
             <tr>
-                <th>Name</th>
+                <th>Event</th>
                 <th>{{events.$getRecord(params.eventID).title}}</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>Type</td>
+                <td><strong>Type</strong></td>
                 <td>{{events.$getRecord(params.eventID).type}}</td>
             </tr>
             <tr>
-                <td>Location</td>
+                <td><strong>Location</strong></td>
                 <td>{{events.$getRecord(params.eventID).location}}</td>
             </tr>
+            
             <tr>
-                <td><span>Starts at</span></td>
+                <td><strong>Event Creator</strong></td>
+                <td>{{events.$getRecord(params.eventID).user}}</td>
+            </tr>
+          
+            <tr>
+                <td><span><strong>Starts at</strong></span></td>
                 <td>{{parseDate(events.$getRecord(params.eventID).startdate)}}</td>
             </tr>
             <tr>
-                <td><span>Ends at</span></td>
+                <td><span><strong>Ends at</strong></span></td>
                 <td>{{parseDate(events.$getRecord(params.eventID).enddate)}}</td>
             </tr>
             <tr>
-                <td><span>Guests</span></td>
+                <td><span><strong>Guestlist</strong></span></td>
                 <td>
                     <ul>
                         <li ng-repeat="guest in events.$getRecord(params.eventID).guestlist">{{guest}}</li>
