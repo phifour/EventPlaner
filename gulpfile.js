@@ -122,30 +122,6 @@ gulp.task('css', function () {
         .pipe(browserSync.stream())
 })
 
-
-//working  gulp.task('css', function () {
-//   return gulp.src('src/css/*.scss')
-//     .pipe(plugins.sourcemaps.init())
-//     .pipe(plugins.sass({ outputStyle: 'compressed' }))
-//     .pipe(plugins.sourcemaps.write('./'))
-//     .pipe(gulp.dest('public/css'))
-//     .pipe(plugins.filter('**/*.css'))
-//     .pipe(reload({stream: true}));
-// });
-
-// gulp.task('misc', function () {
-//   return gulp.src([
-//     // Copy all files
-//     'src/**',
-//     // Exclude the following files
-//     // (other tasks will handle the copying of these files)
-//      '!src/*.html',
-//     // '!src/{css,css/**}',
-//      '!src/{js,js/**}'
-//   ]).pipe(gulp.dest('public'));
-// });
-
-
 gulp.task('js', function () {
     gulp.src(['./src/javascripts/**'])
         .pipe(concat('app.js'))
@@ -181,18 +157,6 @@ function createBundler(src) {
     return b;
 }
 
-
-
-// var bundlePaths = {
-//     src: [
-//         'client/js/**/*.js',
-//         "!client/js/**/lib/**" // Don't bundle libs
-//     ],
-//     dest:'build/js/'
-// }
-
-
-
 var bundlers = {
     'javascripts/app.js': createBundler([
         './src/javascripts/app.js',
@@ -209,7 +173,6 @@ var bundlers = {
         './src/javascripts/service/checkvalues.service.js',
         './src/javascripts/service/foursquare.service.js'
         ]),
-    // 'javascripts/app.js': createBundler(['./src/javascripts/**', './src/dependencies/**']),
 };
 
 
@@ -218,16 +181,7 @@ function bundle(bundler, outputPath) {
     //var splitPath = outputPath.split('/');
     var outputFile = "app.js";//splitPath[splitPath.length - 1];
     var outputDir = "javascripts";//splitPath.slice(0, -1).join('/');
-
-
-
-    // console.log('splitPath',splitPath);
-    // console.log('outputFile',outputFile);
-    // console.log('outputDir',outputDir);
-
-
     return bundler.bundle()
-    // log errors if they happen
         .on('error', plugins.util.log.bind(plugins.util, 'Browserify Error'))
         .pipe(source(outputFile))
         .pipe(buffer())
