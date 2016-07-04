@@ -135,6 +135,7 @@ function AddEventController($scope, CheckValuesService, FourSquareService,$q,$lo
 
                        console.log('ende image loop');
                        $scope.foursquarestate.show = true;
+                       $scope.foursquarestate.visible = true;//hide button
                        $scope.apply;
                         
                     });   
