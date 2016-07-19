@@ -119,7 +119,8 @@
 
 
             <hr /> {% raw %}
-            <pre class="alert alert-info">{{event.name}} starts on {{startdate | date:'fullDate' }} at {{startdate | date:'shortTime' }} and ens on {{enddate | date:'fullDate' }} at {{enddate | date:'shortTime' }} </pre>            {% endraw %}
+            <pre class="alert alert-info">{{event.name}} starts on {{startdate | date:'fullDate' }} at {{startdate | date:'shortTime' }} and ends on {{enddate | date:'fullDate' }} at {{enddate | date:'shortTime' }} </pre>
+            {% endraw %}
 
             <div class="alert alert-danger" ng-show="stringmissing(event.title)"> <strong>Name</strong> of event missing </div>
             <div class="alert alert-danger" ng-show="stringmissing(event.type)"> <strong>Type</strong> of event missing </div>

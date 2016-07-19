@@ -38,6 +38,8 @@ var fs = require('fs')
 var sourcemaps = require('gulp-sourcemaps');
 var size = require('gulp-size');
 var stripcomments = require('gulp-strip-comments');
+var stripDebug = require('gulp-strip-debug');
+
 
 gulp.task('clean', function (done) {
     require('del')(['public'], done);
@@ -125,6 +127,7 @@ gulp.task('js', function () {
         .pipe(concat('app.js'))
         .pipe(uglifyify())
         .pipe(stripcomments())
+        .pipe(stripDebug())
         .pipe(gulp.dest('./public/javascripts/'))
 });
 
