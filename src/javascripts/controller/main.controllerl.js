@@ -21,13 +21,6 @@ function MainController($scope, $rootScope, $firebaseArray, $routeParams,
         accessFac.getPermission();       //call the method in acccessFac to allow the user permission.
     }
 
-
-    // $scope.getproperty = function (obj, pro) {
-    //     return 'irgendwas';
-    // }
-
-    // $scope.selectedlocation = undefined;
-
     $scope.username = accessFac.getuser();
 
     $scope.params = $routeParams;
@@ -150,13 +143,6 @@ function MainController($scope, $rootScope, $firebaseArray, $routeParams,
     };
 
     $scope.events = $firebaseArray(ref.child("events"));
-
-    // $scope.showuser = function () {
-    //     console.log("adding event", $scope.useremail, $scope.authData, $scope.user);
-    //     console.log("user", accessFac.getuser());
-    // };
-
-
 
 };
 

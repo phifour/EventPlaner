@@ -1,4 +1,3 @@
-
 app.controller('TimepickerDemoCtrl', ['$scope', '$log', TimepickerDemoCtrl]);
 
 function TimepickerDemoCtrl($scope, $log) {

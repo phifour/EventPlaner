@@ -34,8 +34,6 @@ function AddEventController($scope, CheckValuesService, FourSquareService,$q,$lo
 
     // $scope.guestlist = [];
 
-
-
     $scope.event = {
       title:undefined,
       type:undefined,
@@ -62,30 +60,6 @@ function AddEventController($scope, CheckValuesService, FourSquareService,$q,$lo
             $scope.event.guestlist.splice(index, 1);
         }
     };
-
-
-
-
-
-
-    $scope.foursquarestate = {show:false,name:"Show Foursquare Recommendations",visible:false};
-    
-    $scope.changestate = function(x){
-        
-        if (x.show == false){
-            x.show = true;
-        }else{
-             x.show = false;
-        }
-        
-        if (x.show){
-            x.name = "Hide Foursquare Recommendations";
-        }else{
-            x.name = "Show Foursquare Recommendations";
-        }
-        
-        //$scope.apply;
-    }
 
     $scope.foursquarecities = ['Vienna,AT', 'Berlin,DE', 'Amsterdam,NL'];
 
@@ -160,11 +134,7 @@ function AddEventController($scope, CheckValuesService, FourSquareService,$q,$lo
 
             event['user'] = $scope.username;
             // event['guestlist'] = $scope.guestlist;
-
             // event['location'] = event.location;
-
-
-
             // console.log('check event',event);
 
             ref.child("events").push(event);
@@ -174,11 +144,8 @@ function AddEventController($scope, CheckValuesService, FourSquareService,$q,$lo
             $location.path('/home');
             //});
         }
-
     };
     
-    
-
     
     //Check Date functions
     $scope.checkdateorder = CheckValuesService.checkdateorder;

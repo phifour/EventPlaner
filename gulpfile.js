@@ -62,11 +62,8 @@ var paths = {
     dest: path.join(config.root.dest, config.tasks.html.dest),
 }
 
-console.log('paths',paths);
-
 var getData = function (file) {
     var dataPath = path.resolve(config.root.src, config.tasks.html.src, config.tasks.html.dataFile)
-    console.log('dataPath',dataPath);
     return JSON.parse(fs.readFileSync(dataPath, 'utf8'))
 }
 
@@ -122,17 +119,17 @@ gulp.task('css', function () {
         .pipe(browserSync.stream())
 })
 
+
 gulp.task('js', function () {
     gulp.src(['./src/javascripts/**'])
         .pipe(concat('app.js'))
         .pipe(uglifyify())
+        .pipe(stripcomments())
         .pipe(gulp.dest('./public/javascripts/'))
 });
 
 
 function createBundler(src) {
-
-    // console.log('src', src);
     var b;
 
     //   if (plugins.util.env.production) {
@@ -217,7 +214,5 @@ gulp.task('build', function () {
 });
 
 
-
-gulp.task('x', ['clean', 'build', 'browser-sync', 'watch']);
 gulp.task('serve', ['browser-sync', 'watch']);
 gulp.task('default', ['build']);

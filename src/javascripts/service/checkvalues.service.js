@@ -20,7 +20,7 @@ function CheckValuesService() {
         }
     }
 
-    this.toshort = function (x) {
+    this.tooshort = function (x) {
         if (x == undefined) {
             return false;
         } else {
@@ -31,7 +31,7 @@ function CheckValuesService() {
         }
     }
 
-    this.tolong = function (x) {
+    this.toolong = function (x) {
         if (x == undefined) {
             return true;
         } else {

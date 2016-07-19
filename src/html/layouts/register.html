@@ -1,32 +1,44 @@
 <div class="container" ng-controller="PasswordController">
+
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">Create New User</h3>
         </div>
-        <div class="panel-body">
-            <form novalidate class="simple-form">
-                <label for="email">Email</label>
-                <input id="email" type="text" ng-model="user.email" /><br>
-                <!--<label>Password</label><input type="text" ng-model="user.password" /> -->
+        <br>
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Email:</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="email" ng-model="user.email" placeholder="Enter email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="pwd">Password:</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="pwd" ng-model="user.password1" placeholder="Enter password">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="pwd2">Repeat Password:</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="pwd2" ng-model="user.password2" placeholder="Repeat password">
+                </div>
+            </div>
 
-                <label>Password</label>
-                <input ng-model="user.password1" type="password" placeholder="New password" maxlength="100"><br>
+            <div class="form-group">
+                <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary btn-block" ng-click="createnewuser(user)">Create User</button>
+                </div>
+            </div>
 
-                <label>Repeat password</label>
-                <input ng-model="user.password2" type="password" placeholder="Repeat password" maxlength="100">
-
-            </form>
-
-                <div class="alert alert-danger" ng-show="toshort(user.password1)">fewer than <strong>16</strong> characters</div>
-                <div class="alert alert-danger" ng-show="tolong(user.password1)">greater than <strong>100</strong> characters</div>
-                <div class="alert alert-danger" ng-show="nolowercaselatter(user.password1)">missing a <strong>lowercase</strong> letter </div>
-                <div class="alert alert-danger" ng-show="nouppercaseletter(user.password1)">missing a <strong>uppercase</strong> letter </div>
-                <div class="alert alert-danger" ng-show="illegalchar(user.password1)">password contains <strong>illegal</strong> character </div>
-                <div class="alert alert-danger" ng-show="passwordsmatch(user.password1,user.password2)">password do not <strong>match</strong></div>
+            <div class="alert alert-danger" ng-show="tooshort(user.password1)">fewer than <strong>16</strong> characters</div>
+            <div class="alert alert-danger" ng-show="toolong(user.password1)">greater than <strong>100</strong> characters</div>
+            <div class="alert alert-danger" ng-show="nolowercaselatter(user.password1)">missing a <strong>lowercase</strong> letter </div>
+            <div class="alert alert-danger" ng-show="nouppercaseletter(user.password1)">missing a <strong>uppercase</strong> letter </div>
+            <div class="alert alert-danger" ng-show="illegalchar(user.password1)">password contains <strong>illegal</strong> character </div>
+            <div class="alert alert-danger" ng-show="passwordsmatch(user.password1,user.password2)">password do not <strong>match</strong></div>
 
 
-            <button type="submit" class="btn btn-primary" ng-click="createnewuser(user)">Create User</button>
-
-        </div>
+        </form>
     </div>
 </div>

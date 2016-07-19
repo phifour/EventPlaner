@@ -1,17 +1,15 @@
-app.controller('PasswordController', ['$scope', 'CheckValuesService', 'refFac', PasswordController]);
+app.controller('PasswordController', ['$scope', 'CheckValuesService', 'refFac','$location','accessFac', PasswordController]);
 
-
-function PasswordController($scope, CheckValuesService, refFac) {
+function PasswordController($scope, CheckValuesService, refFac, $location,accessFac) {
 
     var user_ref = refFac.ref();
-
 
     //Password Checks
     $scope.stringmissing = CheckValuesService.stringmissing;
 
-    $scope.toshort = CheckValuesService.toshort;
+    $scope.tooshort = CheckValuesService.tooshort;
 
-    $scope.tolong = CheckValuesService.tolong;
+    $scope.toolong = CheckValuesService.toolong;
 
     $scope.missingnumber = CheckValuesService.missingnumber;
 
@@ -26,10 +24,14 @@ function PasswordController($scope, CheckValuesService, refFac) {
 
 
 
+
     $scope.createnewuser = function (user) {
 
-        if ($scope.stringmissing == false && $scope.toshort == false && $scope.tolong == false && $scope.missingnumber == false
-            && $scope.nolowercaselatter == false && $scope.nouppercaseletter == false && $scope.illegalchar == false && $scope.passwordsmatch == false) {
+        if ($scope.stringmissing(user.password1) == false && $scope.tooshort(user.password1) == false && 
+        $scope.toolong(user.password1) == false && $scope.missingnumber(user.password1) == false
+            && $scope.nolowercaselatter(user.password1) == false && $scope.nouppercaseletter(user.password1) == false
+            && $scope.illegalchar(user.password1) == false && $scope.passwordsmatch(user.password1,user.password2) == false) {
+            console.log('creating new user','cond ok');
 
             user_ref.createUser({
                 email: user.email,
@@ -47,7 +49,12 @@ function PasswordController($scope, CheckValuesService, refFac) {
                             console.log("Error creating user:", error);
                     }
                 } else {
-                    console.log("Successfully created user account with uid:", userData.uid);
+               console.log("Successfully created user account with uid:", userData.uid);
+                accessFac.access = true;
+                accessFac.username = user.email;
+                $scope.$apply(function () {
+                    $location.path('/home');
+                });
                 }
             });
 

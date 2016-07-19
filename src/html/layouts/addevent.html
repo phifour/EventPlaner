@@ -1,13 +1,4 @@
 {% include "shared/header.html" %}
-
-<!--Name of the event
-Type of the event (birthday party, conference talk, wedding, etc.)
-Event host (could be an individual’s name or an organization)
-Event start date and time
-Event end date and time
-Guest list
-Location-->
-
 <div ng-controller="DatepickerDemoCtrl">
     <div ng-controller="TimepickerDemoCtrl">
         <div class="container" ng-controller="AddEventController">
@@ -33,27 +24,27 @@ Location-->
                 <input type="text" class="form-control" placeholder="John Smith" ng-model="guest" equired id="frmGuest" />
                 <br>
                 <button type="submit" class="btn btn-primary btn-block" ng-click="addguest(guest)">Add Guest</button>
-
+ 
 
                 {% raw %}
 
                 <!--<div class="container">-->
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Guestlist</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="guest in event.guestlist">
-                                <td>{{guest}}</td>
-                                <td>
-                                    <button type="submit" class="btn btn-primary btn-block" ng-click="removeguest(guest)">Remove {{guest}}</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Guestlist</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="guest in event.guestlist">
+                            <td>{{guest}}</td>
+                            <td>
+                                <button type="submit" class="btn btn-primary btn-block" ng-click="removeguest(guest)">Remove {{guest}}</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
                 <!--</div>-->
 
 
@@ -75,19 +66,20 @@ Location-->
                     <br>
                     <label for="foursquare-city">City</label>
                     <select ng-model="fourquarecity" class="form-control" ng-options="x for x in foursquarecities" ng-init="fourquarecity = 'Vienna,AT'"></select>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="showres" ng-init="showres = true">Show FourSquare Recommendations
+                        </label>
+                    </div>
                     <br>
                     <button type="submit" class="btn btn-primary btn-block" ng-click="foursquare(foursquarekeyword,fourquarecity)">Get FourSquare Recommendations</button>
                     <br>
-                    <!-- -->
-                    {% raw %}
-                    <button type="submit" class="btn btn-primary btn-block" ng-show="foursquarestate.visible" ng-click="changestate(foursquarestate)">{{foursquarestate.name}}</button>
-                    <!--<button type="submit" class="btn btn-primary" data-toggle="collapse" data-target="#demo" ng-show="foursquarestate.show" >{{foursquarestate.name}}</button>-->
-                    {% endraw %}
                 </div>
 
             </form>
 
-            <div class="collapse in" ng-show="foursquarestate.show">
+
+            <div class="collapse in" ng-show="showres">
 
                 {% raw %}
                 <div class="row">
