@@ -15,3 +15,4 @@ gulp build
 
 gulp serve
 
+the server runs per default on http://localhost:8000/
