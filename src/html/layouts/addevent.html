@@ -128,9 +128,7 @@
             <div class="alert alert-danger" ng-show="stringmissing(event.location)"> <strong>Location</strong> is missing </div>
             <div class="alert alert-danger" ng-show="stringmissing(startdate)"> <strong>Startdate</strong> is missing </div>
             <div class="alert alert-danger" ng-show="stringmissing(enddate)"> <strong>End date</strong> is missing </div>
-
             <div class="alert alert-danger" ng-show="checkdateorder(startdate,enddate)"> <strong>Start date can't be </strong>after End date </div>
-
             <button type="submit" class="btn btn-primary btn-block" ng-click="addEvent(event)">Add Event</button>
 
         </div>

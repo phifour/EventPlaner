@@ -4,9 +4,7 @@
   <head>
     <meta charset="utf-8">
     <title>{% block title %}{{ title }}{% endblock %}</title>
-    <!--<link rel="stylesheet" href="stylesheets/app.css">-->
     <link rel="stylesheet" href="css/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap/dist/css/bootstrap-select.min.css">
     
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% include "shared/app-icons.html" %}
@@ -16,20 +14,14 @@
     {% block content %}{% endblock %}
     {% block javascript %}
 
-    
     <script type="text/javascript" src="dependencies/jquery.min.js"></script>      
     <script type="text/javascript" src="dependencies/bootstrap.min.js"></script>
-    <script type="text/javascript" src="dependencies/bootstrap-select.min.js"></script>
     <script type="text/javascript" src="dependencies/angular.min.js"></script>
     <script type="text/javascript" src="dependencies/ui-bootstrap-tpls-1.3.2.js"></script>
-    <script type="text/javascript" src="dependencies/autocomplete.js"></script>   
     <script type="text/javascript" src="dependencies/angular-resource.min.js"></script>
     <script type="text/javascript" src="dependencies/angular-route.min.js"></script>
-
     <script type="text/javascript" src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
-    <script type="text/javascript" src="https://cdn.firebase.com/libs/angularfire/1.1.2/angularfire.min.js"></script>
-
-    
+    <script type="text/javascript" src="https://cdn.firebase.com/libs/angularfire/1.1.2/angularfire.min.js"></script>    
     <script type="text/javascript" src="javascripts/app.js"></script>
     {% endblock %}
   </body>

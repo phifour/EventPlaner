@@ -74,7 +74,6 @@ function AddEventController($scope, CheckValuesService, FourSquareService,$q,$lo
     var foursquarefcnt = FourSquareService.getvenues;
     
     $scope.foursquare = function(foursquarekeyword,fourquarecity){
-        // $scope.foursquarestate.visible = true;
         foursquarefcnt(foursquarekeyword,fourquarecity)
         .then(function (data, status, headers, config) {  
                 console.log("data.respons", data.data.response.venues);
@@ -106,12 +105,7 @@ function AddEventController($scope, CheckValuesService, FourSquareService,$q,$lo
                             }
 
                         }
-
-                       console.log('ende image loop');
-                       $scope.foursquarestate.show = true;
-                       $scope.foursquarestate.visible = true;//hide button
-                       $scope.apply;
-                        
+                       $scope.apply;                        
                     });   
             });
                

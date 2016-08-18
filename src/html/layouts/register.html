@@ -3,72 +3,24 @@
 
         <form class="form-signin">
             <h2 class="form-signin-heading">Create new User</h2>
-            <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" id="inputEmail" class="form-control" ng-model="user.email" placeholder="Email address" required autofocus>
-            <label for="inputPassword" class="sr-only">Password</label>
+            <label for="inputName">Name</label>
+            <input type="text" id="inputName" class="form-control" ng-model="user.name" placeholder="Name" required autofocus>
+            <label for="inputEmail">Email address</label>
+            <input type="email" id="inputEmail" class="form-control" ng-model="user.email" placeholder="Email address" required>
+            <label for="inputPassword">Password</label>
             <input type="password" id="inputPassword" class="form-control" ng-model="user.password1" placeholder="Password" required>
-            <label for="inputPassword2" class="sr-only">Repeat Password</label>
+            <label for="inputPassword2">Repeat Password</label>
             <input type="password" id="inputPassword2" class="form-control" ng-model="user.password2" placeholder="Repeat Password" required>
             <button type="submit" class="btn btn-primary btn-block" ng-click="createnewuser(user)">Create User</button>
         </form>
-            <div class="alert alert-danger" ng-show="tooshort(user.password1)">fewer than <strong>16</strong> characters</div>
-            <div class="alert alert-danger" ng-show="toolong(user.password1)">greater than <strong>100</strong> characters</div>
-            <div class="alert alert-danger" ng-show="nolowercaselatter(user.password1)">missing a <strong>lowercase</strong> letter </div>
-            <div class="alert alert-danger" ng-show="nouppercaseletter(user.password1)">missing a <strong>uppercase</strong> letter </div>
-            <div class="alert alert-danger" ng-show="illegalchar(user.password1)">password contains <strong>illegal</strong> character </div>
-            <div class="alert alert-danger" ng-show="passwordsmatch(user.password1,user.password2)">password do not <strong>match</strong></div>
-
+        
+        <div class="alert alert-danger" ng-show="tooshort(user.name)">Name is fewer than <strong>8</strong> characters</div>
+        <div class="alert alert-danger" ng-show="illegalchar(user.name)">Name contains <strong>illegal</strong> character </div>
+        <div class="alert alert-danger" ng-show="tooshort(user.password1)">Password is fewer than <strong>8</strong> characters</div>
+        <div class="alert alert-danger" ng-show="toolong(user.password1)">Password isgreater than <strong>100</strong> characters</div>
+        <div class="alert alert-danger" ng-show="nolowercaselatter(user.password1)">Password is missing a <strong>lowercase</strong> letter </div>
+        <div class="alert alert-danger" ng-show="nouppercaseletter(user.password1)">Password is missing a <strong>uppercase</strong> letter </div>
+        <div class="alert alert-danger" ng-show="illegalchar(user.password1)">Password contains <strong>illegal</strong> character </div>
+        <div class="alert alert-danger" ng-show="passwordsmatch(user.password1,user.password2)">Passwords do not <strong>match</strong></div>
     </div>
-<!--
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">Create New User</h3>
-        </div>
-        <br>
-        <form class="form-horizontal" role="form">
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="email">Email:</label>
-                <div class="col-sm-10">
-                    <input type="email" class="form-control" id="email" ng-model="user.email" placeholder="Enter email">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="pwd">Password:</label>
-                <div class="col-sm-10">
-                    <input type="password" class="form-control" id="pwd" ng-model="user.password1" placeholder="Enter password">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="pwd2">Repeat Password:</label>
-                <div class="col-sm-10">
-                    <input type="password" class="form-control" id="pwd2" ng-model="user.password2" placeholder="Repeat password">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-10">
-
-                </div>
-            </div>
-
-
-
-        </form>
-    </div>-->
 </div>

@@ -10,6 +10,9 @@ function CheckValuesService() {
         }
     }
 
+    var minlength = 8;
+    var maxlength = 100;
+
     //Password Checks
 
     this.stringmissing = function (x) {
@@ -24,7 +27,7 @@ function CheckValuesService() {
         if (x == undefined) {
             return false;
         } else {
-            if (x.length < 16) { return true; }
+            if (x.length < minlength) { return true; }
             else {
                 return false;
             }
@@ -35,7 +38,7 @@ function CheckValuesService() {
         if (x == undefined) {
             return true;
         } else {
-            if (x.length > 100) { return true; }
+            if (x.length > maxlength) { return true; }
             else {
                 return false;
             }

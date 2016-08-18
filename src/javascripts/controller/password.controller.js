@@ -2,7 +2,7 @@ app.controller('PasswordController', ['$scope', 'CheckValuesService', 'refFac','
 
 function PasswordController($scope, CheckValuesService, refFac, $location,accessFac) {
 
-    var user_ref = refFac.ref();
+    var user_ref = refFac.user_ref();
 
     //Password Checks
     $scope.stringmissing = CheckValuesService.stringmissing;
@@ -21,17 +21,14 @@ function PasswordController($scope, CheckValuesService, refFac, $location,access
 
     $scope.passwordsmatch = CheckValuesService.passwordsmatch;
 
-
-
-
-
     $scope.createnewuser = function (user) {
 
         if ($scope.stringmissing(user.password1) == false && $scope.tooshort(user.password1) == false && 
         $scope.toolong(user.password1) == false && $scope.missingnumber(user.password1) == false
             && $scope.nolowercaselatter(user.password1) == false && $scope.nouppercaseletter(user.password1) == false
-            && $scope.illegalchar(user.password1) == false && $scope.passwordsmatch(user.password1,user.password2) == false) {
-            console.log('creating new user','cond ok');
+            && $scope.illegalchar(user.password1) == false && $scope.passwordsmatch(user.password1,user.password2) == false
+            && $scope.illegalchar(user.name) == false && $scope.tooshort(user.name) == false) {
+            console.log('creating new user','cond ok',user);
 
             user_ref.createUser({
                 email: user.email,
@@ -49,9 +46,12 @@ function PasswordController($scope, CheckValuesService, refFac, $location,access
                             console.log("Error creating user:", error);
                     }
                 } else {
-               console.log("Successfully created user account with uid:", userData.uid);
+                console.log("Successfully created user account with uid:", userData.uid);
                 accessFac.access = true;
-                accessFac.username = user.email;
+                accessFac.username = user.name;                
+                //add user
+                var tempuser = {name:user.name,email:user.email,id:userData.uid};
+                user_ref.push(tempuser);                                
                 $scope.$apply(function () {
                     $location.path('/home');
                 });

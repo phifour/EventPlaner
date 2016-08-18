@@ -127,7 +127,7 @@ gulp.task('js', function () {
         .pipe(concat('app.js'))
         .pipe(uglifyify())
         .pipe(stripcomments())
-        .pipe(stripDebug())
+        //.pipe(stripDebug())
         .pipe(gulp.dest('./public/javascripts/'))
 });
 

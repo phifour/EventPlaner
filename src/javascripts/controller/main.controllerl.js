@@ -1,10 +1,10 @@
 
 app.controller('MainController', ['$scope', '$rootScope', '$firebaseArray',
- '$routeParams', 'accessFac', '$location', '$http',
-  '$q', 'FourSquareService','CheckValuesService','AuthentificationService','refFac', MainController]);
+    '$routeParams', 'accessFac', '$location', '$http',
+    '$q', 'FourSquareService', 'CheckValuesService', 'AuthentificationService', 'refFac', MainController]);
 
 function MainController($scope, $rootScope, $firebaseArray, $routeParams,
- accessFac, $location, $http, $q, FourSquareService,CheckValuesService,AuthentificationService,refFac) {
+    accessFac, $location, $http, $q, FourSquareService, CheckValuesService, AuthentificationService, refFac) {
 
     $scope.parseDate = function (x) {
         if (x != null) {
@@ -124,7 +124,14 @@ function MainController($scope, $rootScope, $firebaseArray, $routeParams,
 
     // };
 
-     $scope.loginwithpassword =  function (user) {
+    $scope.loginwithpassword = function (user) {
+        
+        user_ref.orderByChild("email").equalTo(user.email).on("child_added", function (userdata) {
+            console.log(userdata.val());
+            accessFac.username = userdata.val().name;//email
+        });
+        
+        
         ref.authWithPassword({
             "email": user.email,
             "password": user.password
@@ -134,7 +141,9 @@ function MainController($scope, $rootScope, $firebaseArray, $routeParams,
             } else {
                 console.log("Authenticated successfully with payload:", authData);
                 accessFac.access = true;
-                accessFac.username = user.email;
+                
+
+
                 $scope.$apply(function () {
                     $location.path('/home');
                 });
