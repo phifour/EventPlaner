@@ -7,6 +7,9 @@ function AddEventController($scope, CheckValuesService, FourSquareService,$q,$lo
 
     $scope.stringmissing = CheckValuesService.stringmissing;
 
+    //jquerey workaround
+    $('#frmEventName').focus();
+
     // $scope.params = $routeParams;
 
     $scope.authData = undefined;

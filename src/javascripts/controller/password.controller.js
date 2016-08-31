@@ -4,6 +4,8 @@ function PasswordController($scope, CheckValuesService, refFac, $location,access
 
     var user_ref = refFac.user_ref();
 
+    $('#inputName').focus();
+
     //Password Checks
     $scope.stringmissing = CheckValuesService.stringmissing;
 
@@ -22,6 +24,23 @@ function PasswordController($scope, CheckValuesService, refFac, $location,access
     $scope.passwordsmatch = CheckValuesService.passwordsmatch;
 
     $scope.createnewuser = function (user) {
+        
+        console.log('click');
+        
+        
+        console.log('$scope.stringmissing(user.password1) == false',$scope.stringmissing(user.password1));
+        console.log('$scope.tooshort(user.password1) == false',$scope.tooshort(user.password1));
+        console.log('$scope.toolong(user.password1) == false',$scope.toolong(user.password1));
+        console.log('$scope.missingnumber(user.password1) == false',$scope.missingnumber(user.password1));
+        console.log('$scope.nolowercaselatter(user.password1) == false',$scope.nolowercaselatter(user.password1));
+        console.log('$scope.nouppercaseletter(user.password1) == false',$scope.nouppercaseletter(user.password1));
+        console.log('$scope.illegalchar(user.password1) == false',$scope.illegalchar(user.password1));
+        console.log('$scope.passwordsmatch(user.password1,user.password2) == false',$scope.passwordsmatch(user.password1,user.password2));
+        console.log('$scope.illegalchar(user.name) == false',$scope.illegalchar(user.name));
+        console.log('$scope.tooshort(user.name) == false',$scope.tooshort(user.name)); 
+        
+        
+        
 
         if ($scope.stringmissing(user.password1) == false && $scope.tooshort(user.password1) == false && 
         $scope.toolong(user.password1) == false && $scope.missingnumber(user.password1) == false

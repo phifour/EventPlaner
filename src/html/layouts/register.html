@@ -4,7 +4,7 @@
         <form class="form-signin">
             <h2 class="form-signin-heading">Create new User</h2>
             <label for="inputName">Name</label>
-            <input type="text" id="inputName" class="form-control" ng-model="user.name" placeholder="Name" required autofocus>
+            <input type="text" id="inputName" class="form-control" ng-model="user.name" placeholder="Name" required>
             <label for="inputEmail">Email address</label>
             <input type="email" id="inputEmail" class="form-control" ng-model="user.email" placeholder="Email address" required>
             <label for="inputPassword">Password</label>
@@ -20,6 +20,7 @@
         <div class="alert alert-danger" ng-show="toolong(user.password1)">Password isgreater than <strong>100</strong> characters</div>
         <div class="alert alert-danger" ng-show="nolowercaselatter(user.password1)">Password is missing a <strong>lowercase</strong> letter </div>
         <div class="alert alert-danger" ng-show="nouppercaseletter(user.password1)">Password is missing a <strong>uppercase</strong> letter </div>
+        <div class="alert alert-danger" ng-show="missingnumber(user.password1)">Password is missing a <strong>Number</strong></div>        
         <div class="alert alert-danger" ng-show="illegalchar(user.password1)">Password contains <strong>illegal</strong> character </div>
         <div class="alert alert-danger" ng-show="passwordsmatch(user.password1,user.password2)">Passwords do not <strong>match</strong></div>
     </div>
