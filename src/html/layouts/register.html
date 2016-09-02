@@ -5,23 +5,28 @@
             <h2 class="form-signin-heading">Create new User</h2>
             <label for="inputName">Name</label>
             <input type="text" id="inputName" class="form-control" ng-model="user.name" placeholder="Name" required>
+            <div class="alert alert-danger" ng-show="tooshort(user.name)">Name is fewer than <strong>8</strong> characters</div>
+            <div class="alert alert-danger" ng-show="illegalchar(user.name)">Name contains <strong>illegal</strong> character</div>
             <label for="inputEmail">Email address</label>
             <input type="email" id="inputEmail" class="form-control" ng-model="user.email" placeholder="Email address" required>
+            <div class="alert alert-danger" ng-show="checkemail(user.email)">Email adress is <strong>incorrect</strong></div>
+            <h4>Birthday (optional)</h4>
+            <!--<div style="display:inline-block; min-height:290px;">-->
+            <uib-datepicker ng-model="user.birthday" class="well well-sm" datepicker-options="options"></uib-datepicker>
+            <label for="Jobtitle">Job title (optional)</label>
+            <input type="text" id="Jobtitle" class="form-control" ng-model="user.job" placeholder="Email address">
             <label for="inputPassword">Password</label>
             <input type="password" id="inputPassword" class="form-control" ng-model="user.password1" placeholder="Password" required>
+            <div class="alert alert-danger" ng-show="tooshort(user.password1)">Password is fewer than <strong>8</strong> characters</div>
+            <div class="alert alert-danger" ng-show="toolong(user.password1)">Password isgreater than <strong>100</strong> characters</div>
+            <div class="alert alert-danger" ng-show="nolowercaselatter(user.password1)">Password is missing a <strong>lowercase</strong> letter </div>
+            <div class="alert alert-danger" ng-show="nouppercaseletter(user.password1)">Password is missing a <strong>uppercase</strong> letter </div>
+            <div class="alert alert-danger" ng-show="missingnumber(user.password1)">Password is missing a <strong>Number</strong></div>
+            <div class="alert alert-danger" ng-show="illegalchar(user.password1)">Password contains <strong>illegal</strong> character </div>
             <label for="inputPassword2">Repeat Password</label>
             <input type="password" id="inputPassword2" class="form-control" ng-model="user.password2" placeholder="Repeat Password" required>
+            <div class="alert alert-danger" ng-show="passwordsmatch(user.password1,user.password2)">Passwords do not <strong>match</strong></div>
             <button type="submit" class="btn btn-primary btn-block" ng-click="createnewuser(user)">Create User</button>
         </form>
-        
-        <div class="alert alert-danger" ng-show="tooshort(user.name)">Name is fewer than <strong>8</strong> characters</div>
-        <div class="alert alert-danger" ng-show="illegalchar(user.name)">Name contains <strong>illegal</strong> character </div>
-        <div class="alert alert-danger" ng-show="tooshort(user.password1)">Password is fewer than <strong>8</strong> characters</div>
-        <div class="alert alert-danger" ng-show="toolong(user.password1)">Password isgreater than <strong>100</strong> characters</div>
-        <div class="alert alert-danger" ng-show="nolowercaselatter(user.password1)">Password is missing a <strong>lowercase</strong> letter </div>
-        <div class="alert alert-danger" ng-show="nouppercaseletter(user.password1)">Password is missing a <strong>uppercase</strong> letter </div>
-        <div class="alert alert-danger" ng-show="missingnumber(user.password1)">Password is missing a <strong>Number</strong></div>        
-        <div class="alert alert-danger" ng-show="illegalchar(user.password1)">Password contains <strong>illegal</strong> character </div>
-        <div class="alert alert-danger" ng-show="passwordsmatch(user.password1,user.password2)">Passwords do not <strong>match</strong></div>
     </div>
 </div>

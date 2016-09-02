@@ -27,6 +27,14 @@ function AddEventController($scope, CheckValuesService, FourSquareService,$q,$lo
         }
     }
 
+    $scope.isempty = function(x){
+        if (x.length>0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
     $scope.locations = [];
 
     $scope.selectedlocation = undefined;
@@ -34,8 +42,6 @@ function AddEventController($scope, CheckValuesService, FourSquareService,$q,$lo
     $scope.guest = "";
 
     $scope.images = [];
-
-    // $scope.guestlist = [];
 
     $scope.event = {
       title:undefined,
@@ -87,7 +93,6 @@ function AddEventController($scope, CheckValuesService, FourSquareService,$q,$lo
                 
                 $q.all(data.photos)
                     .then(function (responsesArray) {
-                        console.log('list of promisi2222',data);
                           $scope.images = [];
 
                         for (var i = 0; i < responsesArray.length; i++) {
@@ -120,7 +125,7 @@ function AddEventController($scope, CheckValuesService, FourSquareService,$q,$lo
             console.log('adding event');
 
         if (event.title != undefined && event.type != undefined && event.host != undefined
-        && event.location != undefined) {
+        && event.location != undefined && event.endtime != undefined && event.starttime != undefined) {
 
             console.log("adding event");
 

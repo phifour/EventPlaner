@@ -1,15 +1,28 @@
 app.service('CheckValuesService', [CheckValuesService]);
 
 function CheckValuesService() {
-    
-   this.checkdateorder = function (startdate, enddate) {
+
+    this.checkdateorder = function (startdate, enddate) {
         if (startdate > enddate) {
             return true;
         } else {
             return false;
         }
     }
-
+    
+    this.inpast = function (date) {
+        
+        var today = new Date();
+        
+        console.log(today,date);
+        
+        if (date < today) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     var minlength = 8;
     var maxlength = 100;
 
@@ -93,5 +106,20 @@ function CheckValuesService() {
     this.passwordsmatch = function (x, y) {
         if (x == y) { return false } else { return true; };
     }
-    
+
+    this.checkemail = function (x) {
+        var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if (x == undefined) {
+            return true;
+        } else {
+            if (x.match(mailformat)) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+    }
+
+
 }
