@@ -27,13 +27,16 @@
             </tr>
           
             <tr>
-                <td><span><strong>Starts at</strong></span></td>
-                <td>{{parseDate(events.$getRecord(params.eventID).startdate)}}</td>
+                <td><span><strong>Start</strong></span></td>
+                <td>{{parseDate(events.$getRecord(params.eventID).startdate)}} from 
+                    {{events.$getRecord(params.eventID).starttime}} to
+                    {{events.$getRecord(params.eventID).endtime}}                    
+                </td>
             </tr>
-            <tr>
+            <!--<tr>
                 <td><span><strong>Ends at</strong></span></td>
                 <td>{{parseDate(events.$getRecord(params.eventID).enddate)}}</td>
-            </tr>
+            </tr>-->
             <tr>
                 <td><span><strong>Guestlist</strong></span></td>
                 <td>
@@ -45,7 +48,7 @@
 
             <tr>
                 <td><span><strong>Message to guests</strong></span></td>
-                <td>{{events.$getRecord(params.eventID)}}</td>
+                <td>{{events.$getRecord(params.eventID).message}}</td>
             </tr>
 
         </tbody>

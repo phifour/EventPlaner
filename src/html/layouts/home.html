@@ -4,44 +4,35 @@ https://mozilla.github.io/nunjucks/api.html {% include "shared/header.html" %} #
 
 
 
-<center><h2>Events</h2></center>
+<center>
+    <h2>Events</h2></center>
 <div class="container-fluid">
-<table class="table table-bordered table-hover table-condensed">
-    <tr style="font-weight: bold">
-        <td style="width:35%">Event</td>
-        <td style="width:20%">Type</td>
-        <td style="width:20%">Start</td>
-        <td style="width:20%">End</td>
-    </tr>
-    <tr ng-repeat="event in events|filter:search.name">
-        
-<td>
-    {% raw %} <span><a href="#/eventdetails/{{event.$id}}">{{event.title}}  </a><input type="text" ng-model="event.mytext" ng-show="checkeditmode(event)"/>  {% endraw %} 
+    <table class="table table-bordered table-hover table-condensed">
+        <tr style="font-weight: bold">
+            <td style="width:35%">Event</td>
+            <td style="width:20%">Type</td>
+            <td style="width:20%">Start</td>
+        </tr>
+        <tr ng-repeat="event in events|filter:search.name">
+
+            <td>
+                {% raw %} <span><a href="#/eventdetails/{{event.$id}}">{{event.title}}  </a><input type="text" ng-model="event.mytext" ng-show="checkeditmode(event)"/>  {% endraw %} 
         </span>
-</td>
-      
-<td>
-    {% raw %}<span>{{event.type}}</span> {% endraw %}
-</td>
-      
-<td>
-    <span>
-         {% raw %} <span>{{parseDate(event.startdate)}} {% endraw %} 
+            </td>
+
+            <td>
+                {% raw %}<span>{{event.type}}</span> {% endraw %}
+            </td>
+
+            <td>
+                <span>
+         {% raw %} <span>{{parseDate(event.startdate)}} from {{event.starttime}} to {{event.endtime}}{% endraw %} 
         </span>
-</td>
- 
-<td>
-    <span>
-         {% raw %} <span>{{parseDate(event.enddate)}} {% endraw %} 
-        </span>
-</td> 
- 
- 
-                
-        
-    </tr>
-</table>
-</div> 
+            </td>
+
+        </tr>
+    </table>
+</div>
 
 
 

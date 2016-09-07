@@ -1,7 +1,12 @@
- 
-app.controller('AddEventController', ['$scope', 'CheckValuesService','FourSquareService','$q','$location','refFac','accessFac', AddEventController]);
+ app.controller('AddEventController', ['$scope', 'CheckValuesService','FourSquareService','$q','$location','refFac','accessFac', AddEventController]);
 
 function AddEventController($scope, CheckValuesService, FourSquareService,$q,$location,refFac,accessFac) {  
+    
+    
+    //Check Date functions
+    $scope.checkdateorder = CheckValuesService.checkdateorder;
+    
+    $scope.inpast = CheckValuesService.inpast;
     
     $scope.username = accessFac.getuser();
 
@@ -26,14 +31,27 @@ function AddEventController($scope, CheckValuesService, FourSquareService,$q,$lo
             return "Not availabe";
         }
     }
-
-    $scope.isempty = function(x){
+    
+    function formatdigit(x) {
+        var n = x.length;
+        if (n > 1) {
+            return x;
+        } else {
+            return '0'+x;
+        }
+    }
+    
+    
+    
+    function isempty(x){
         if (x.length>0){
             return false;
         }else{
             return true;
         }
     }
+
+    $scope.isempty = isempty;
 
     $scope.locations = [];
 
@@ -48,6 +66,9 @@ function AddEventController($scope, CheckValuesService, FourSquareService,$q,$lo
       type:undefined,
       host:undefined,
       location:undefined,
+      startdate:undefined,
+      starttime:undefined,
+      endtime:undefined,
       guestlist:[]
       };
 
@@ -119,18 +140,21 @@ function AddEventController($scope, CheckValuesService, FourSquareService,$q,$lo
                
     }
     
-
         $scope.addEvent = function (event) {
 
-            console.log('adding event');
+        console.log('adding event',event);
 
         if (event.title != undefined && event.type != undefined && event.host != undefined
-        && event.location != undefined && event.endtime != undefined && event.starttime != undefined) {
+        && event.location != undefined && event.endtime != undefined && event.starttime != undefined
+        && isempty(event.guestlist) ==false) {
+            //console.log("adding event");
+            event['startdate'] = event.startdate.toString();
+            //.getMonth()+'.'+event.startdate.getDay();            
+            //time
+            event['starttime'] = formatdigit(event.starttime.getHours())+':'+formatdigit(event.starttime.getMinutes());
+            event['endtime'] = formatdigit(event.endtime.getHours())+':'+formatdigit(event.endtime.getMinutes());
 
-            console.log("adding event");
-
-            event['startdate'] = $scope.startdate.toString();;
-            event['enddate'] = $scope.enddate.toString();
+            // event['enddate'] = $scope.enddate.toString();
 
             if ($scope.username == null) $scope.username = 'unknown';
 
@@ -149,7 +173,6 @@ function AddEventController($scope, CheckValuesService, FourSquareService,$q,$lo
     };
     
     
-    //Check Date functions
-    $scope.checkdateorder = CheckValuesService.checkdateorder;
+
     
 }

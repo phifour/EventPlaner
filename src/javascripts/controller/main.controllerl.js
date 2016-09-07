@@ -10,7 +10,7 @@ function MainController($scope, $rootScope, $firebaseArray, $routeParams,
         if (x != null) {
             var date = Date.parse(x);
             var myDate = new Date(date);
-            return myDate.getDate() + "." + myDate.getMonth() + "." + myDate.getFullYear() + " at " + myDate.toLocaleTimeString();
+            return myDate.getDate() + "." + myDate.getMonth() + "." + myDate.getFullYear();// + " at " + myDate.toLocaleTimeString();
             //toTimeString();//toUTCString();//.toLocaleDateString();//toLocaleDateString(); //.toDateString();
         } else {
             return "Not availabe";

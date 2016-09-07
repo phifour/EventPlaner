@@ -10,13 +10,13 @@ function CheckValuesService() {
         }
     }
     
-    this.inpast = function (date) {
+    this.inpast = function (x) {
         
         var today = new Date();
         
-        console.log(today,date);
+        console.log(today,x);
         
-        if (date < today) {
+        if (x.getTime() <= today.getTime()) {
             return true;
         } else {
             return false;

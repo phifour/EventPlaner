@@ -114,33 +114,32 @@
             <div class="container">
                 <h4>Start date</h4>
                 <!--<div style="display:inline-block; min-height:290px;">-->
-                <uib-datepicker ng-model="startdate" class="well well-sm" datepicker-options="options"></uib-datepicker>
-                <div class="alert alert-danger" ng-show="stringmissing(startdate)"> <strong>Startdate</strong> is missing </div>
-                <div class="alert alert-danger" ng-show="inpast(startdate)"> <strong>Start date can't be </strong>in the past</div>
+                <uib-datepicker ng-model="event.startdate" class="well well-sm" datepicker-options="options"></uib-datepicker>
+                <div class="alert alert-danger" ng-show="stringmissing(event.startdate)"> <strong>Startdate</strong> is missing </div>
+                <div class="alert alert-danger" ng-show="inpast(event.startdate)"> <strong>Start date can't be </strong>in the past</div>
                 <h4></h4>
                 <!--<uib-timepicker ng-model="startdate" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>-->
                 <!--</div>-->
                 <label for="starttime">Start time</label>
                 <input type="time" class="form-control" ng-model="event.starttime" name="datetime-local">
                 <div class="alert alert-danger" ng-show="stringmissing(event.starttime)"> <strong>Start time</strong> is missing </div>
-                <h4>End date</h4>
-                <!--<div style="display:inline-block; min-height:290px;">-->
+                <!--<h4>End date</h4>
                 <uib-datepicker ng-model="enddate" class="well well-sm" datepicker-options="options"></uib-datepicker>
                 <div class="alert alert-danger" ng-show="stringmissing(enddate)"> <strong>End date</strong> is missing </div>
-                <div class="alert alert-danger" ng-show="inpast(enddate)"> <strong>End date can't be </strong>in the past</div>
+                <div class="alert alert-danger" ng-show="inpast(enddate)"> <strong>End date can't be </strong>in the past</div>-->
                 <label for="endtime">End time</label>
                 <input type="time" class="form-control" ng-model="event.endtime" name="datetime-local">
                 <div class="alert alert-danger" ng-show="stringmissing(event.endtime)"> <strong>End time</strong> is missing </div>
                 <!--<uib-timepicker ng-model="enddate" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>-->
                 <!--</div>-->                                                
-                <div class="alert alert-danger" ng-show="checkdateorder(startdate,enddate)"> <strong>Start date can't be </strong>after End date </div>
+                <!--<div class="alert alert-danger" ng-show="checkdateorder(startdate,enddate)"> <strong>Start date can't be </strong>after End date </div>-->
 
             
             </div>
             
             <h4>Message to guets</h4>
             <textarea class="form-control" rows="5" ng-model="event.message"></textarea>
-
+            <br>
             <button type="submit" class="btn btn-primary btn-block" ng-click="addEvent(event)">Add Event</button>
 
         </div>
