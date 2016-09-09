@@ -5,8 +5,9 @@ function AddEventController($scope, CheckValuesService, FourSquareService,$q,$lo
     
     //Check Date functions
     $scope.checkdateorder = CheckValuesService.checkdateorder;
+    var inpast = CheckValuesService.inpast;
     
-    $scope.inpast = CheckValuesService.inpast;
+    $scope.inpast = inpast;
     
     $scope.username = accessFac.getuser();
 
@@ -33,6 +34,7 @@ function AddEventController($scope, CheckValuesService, FourSquareService,$q,$lo
     }
     
     function formatdigit(x) {
+        x = '' + x; 
         var n = x.length;
         if (n > 1) {
             return x;
@@ -146,7 +148,7 @@ function AddEventController($scope, CheckValuesService, FourSquareService,$q,$lo
 
         if (event.title != undefined && event.type != undefined && event.host != undefined
         && event.location != undefined && event.endtime != undefined && event.starttime != undefined
-        && isempty(event.guestlist) ==false) {
+        && isempty(event.guestlist) == false && inpast(event.startdate)==false) {
             //console.log("adding event");
             event['startdate'] = event.startdate.toString();
             //.getMonth()+'.'+event.startdate.getDay();            

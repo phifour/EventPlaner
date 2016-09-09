@@ -1,5 +1,22 @@
 app.service('CheckValuesService', [CheckValuesService]);
 
+function DateAdd(date, type, amount){
+    var y = date.getFullYear(),
+        m = date.getMonth(),
+        d = date.getDate();
+    if(type === 'y'){
+        y += amount;
+    };
+    if(type === 'm'){
+        m += amount;
+    };
+    if(type === 'd'){
+        d += amount;
+    };
+    return new Date(y, m, d);
+}
+
+
 function CheckValuesService() {
 
     this.checkdateorder = function (startdate, enddate) {
@@ -11,15 +28,19 @@ function CheckValuesService() {
     }
     
     this.inpast = function (x) {
-        
-        var today = new Date();
-        
-        console.log(today,x);
-        
-        if (x.getTime() <= today.getTime()) {
+ 
+        if (x == undefined) {
+            return true;
+        } else if(x instanceof Date == false){
             return true;
         } else {
-            return false;
+            var today = new Date();
+            today = DateAdd(today, 'd', -1);
+            if (x.getTime() <= today.getTime()) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
     
