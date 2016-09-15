@@ -20,10 +20,14 @@ function DateAdd(date, type, amount){
 function CheckValuesService() {
 
     this.checkdateorder = function (startdate, enddate) {
-        if (startdate > enddate) {
+        if (startdate != undefined && enddate != undefined){
+        if (startdate.getTime() > enddate.getTime()) {
             return true;
         } else {
             return false;
+        }
+        }else{
+            return true; 
         }
     }
     
@@ -35,7 +39,7 @@ function CheckValuesService() {
             return true;
         } else {
             var today = new Date();
-            today = DateAdd(today, 'd', -1);
+            // today = DateAdd(today, 'd', -1);
             if (x.getTime() <= today.getTime()) {
                 return true;
             } else {
@@ -117,7 +121,7 @@ function CheckValuesService() {
         if (x == undefined) {
             return true;
         } else {
-            if (x.match(/[\!\@\#\$\%\^\&\*]/g)) { return true; }
+            if (x.match(/[\!\@\#\$\%\^\&\*\ ]/g)) { return true; }
             else {
                 return false;
             }

@@ -4,7 +4,9 @@ function AddEventController($scope, CheckValuesService, FourSquareService,$q,$lo
     
     
     //Check Date functions
-    $scope.checkdateorder = CheckValuesService.checkdateorder;
+    var checkdateorder = CheckValuesService.checkdateorder;
+    $scope.checkdateorder = checkdateorder;
+    
     var inpast = CheckValuesService.inpast;
     
     $scope.inpast = inpast;
@@ -63,21 +65,23 @@ function AddEventController($scope, CheckValuesService, FourSquareService,$q,$lo
 
     $scope.images = [];
 
+    var today = new Date();
+
     $scope.event = {
       title:undefined,
       type:undefined,
       host:undefined,
       location:undefined,
-      startdate:undefined,
-      starttime:undefined,
-      endtime:undefined,
+      //startdate:undefined,
+      //enddate:undefined,
+      startdate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+      enddate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
       guestlist:[]
       };
 
-
     $scope.addguest = function (guest) {
         console.log($scope.event.guestlist);
-        if (guest != undefined) {
+        if (guest != undefined && guest!="") {
             if ($scope.event.guestlist.indexOf(guest) >= 0) {
                 //console.log("guest double entry");
             } else {
@@ -147,15 +151,23 @@ function AddEventController($scope, CheckValuesService, FourSquareService,$q,$lo
         console.log('adding event',event);
 
         if (event.title != undefined && event.type != undefined && event.host != undefined
-        && event.location != undefined && event.endtime != undefined && event.starttime != undefined
-        && isempty(event.guestlist) == false && inpast(event.startdate)==false) {
+        && event.location != undefined && isempty(event.guestlist) == false && inpast(event.startdate)==false
+        && inpast(event.enddate)==false && checkdateorder(event.startdate,event.enddate) == false
+        ) {
             //console.log("adding event");
-            event['startdate'] = event.startdate.toString();
+            
+            event['starttime'] = formatdigit(event.startdate.getHours())+':'+formatdigit(event.startdate.getMinutes());
+            event['endtime'] = formatdigit(event.enddate.getHours())+':'+formatdigit(event.enddate.getMinutes());
+            
+            
+            event['start'] = event.startdate.toString();
+            event['end'] = event.enddate.toString();
             //.getMonth()+'.'+event.startdate.getDay();            
             //time
-            event['starttime'] = formatdigit(event.starttime.getHours())+':'+formatdigit(event.starttime.getMinutes());
-            event['endtime'] = formatdigit(event.endtime.getHours())+':'+formatdigit(event.endtime.getMinutes());
 
+            delete event["startdate"];
+            delete event["enddate"];
+    
             // event['enddate'] = $scope.enddate.toString();
 
             if ($scope.username == null) $scope.username = 'unknown';

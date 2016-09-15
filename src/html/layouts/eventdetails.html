@@ -28,15 +28,11 @@
           
             <tr>
                 <td><span><strong>Start</strong></span></td>
-                <td>{{parseDate(events.$getRecord(params.eventID).startdate)}} from 
-                    {{events.$getRecord(params.eventID).starttime}} to
-                    {{events.$getRecord(params.eventID).endtime}}                    
+                <td>                                        
+                    {{showDates(events.$getRecord(params.eventID).start, events.$getRecord(params.eventID).starttime, events.$getRecord(params.eventID).end, events.$getRecord(params.eventID).endtime)}}                                                                                             
                 </td>
             </tr>
-            <!--<tr>
-                <td><span><strong>Ends at</strong></span></td>
-                <td>{{parseDate(events.$getRecord(params.eventID).enddate)}}</td>
-            </tr>-->
+
             <tr>
                 <td><span><strong>Guestlist</strong></span></td>
                 <td>
@@ -53,7 +49,6 @@
 
         </tbody>
     </table>
-
 
     {% endraw %}
 

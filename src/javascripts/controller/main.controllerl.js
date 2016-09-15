@@ -17,6 +17,19 @@ function MainController($scope, $rootScope, $firebaseArray, $routeParams,
         }
     }
 
+
+    $scope.showDates = function(date1, time1, date2, time2) {
+        var myDate1 = new Date(date1);
+        var myDate2 = new Date(date2);
+        if (myDate1.getDate() == myDate2.getDate() && myDate1.getMonth() == myDate2.getMonth() && myDate1.getFullYear() == myDate2.getFullYear()) {
+            //event starts and ends on the same day        
+            return myDate1.getDate() + "." + myDate1.getMonth() + "." + myDate1.getFullYear() + ' from ' + time1 + ' to ' + time2;
+        } else {
+            return myDate1.getDate() + "." + myDate1.getMonth() + "." + myDate1.getFullYear() + ' ' + time1 + ' to ' + 
+            myDate2.getDate() + "." + myDate2.getMonth() + "." + myDate2.getFullYear() + ' ' + time2; 
+        }
+    }
+
     $scope.getAccess = function () {
         accessFac.getPermission();       //call the method in acccessFac to allow the user permission.
     }

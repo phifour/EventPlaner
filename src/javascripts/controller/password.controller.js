@@ -27,7 +27,6 @@ function PasswordController($scope, CheckValuesService, refFac, $location,access
     
     $scope.inpast = CheckValuesService.inpast;
     
-
     $scope.createnewuser = function (user) {
         
         // console.log('click');

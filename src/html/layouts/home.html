@@ -2,8 +2,6 @@
 https://mozilla.github.io/nunjucks/api.html {% include "shared/header.html" %} #} {% block content %} {% include "shared/header.html"
 %}
 
-
-
 <center>
     <h2>Events</h2></center>
 <div class="container-fluid">
@@ -26,7 +24,7 @@ https://mozilla.github.io/nunjucks/api.html {% include "shared/header.html" %} #
 
             <td>
                 <span>
-         {% raw %} <span>{{parseDate(event.startdate)}} from {{event.starttime}} to {{event.endtime}}{% endraw %} 
+         {% raw %} <span>{{showDates(event.start, event.starttime, event.end, event.endtime)}}{% endraw %} 
         </span>
             </td>
 
