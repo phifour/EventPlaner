@@ -121,7 +121,7 @@ function CheckValuesService() {
         if (x == undefined) {
             return true;
         } else {
-            if (x.match(/[\!\@\#\$\%\^\&\*\ ]/g)) { return true; }
+            if (x.match(/[\!\@\#\$\%\^\&\*]/g)) { return true; }
             else {
                 return false;
             }
