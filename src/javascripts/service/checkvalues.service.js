@@ -21,7 +21,7 @@ function CheckValuesService() {
 
     this.checkdateorder = function (startdate, enddate) {
         if (startdate != undefined && enddate != undefined){
-        if (startdate.getTime() > enddate.getTime()) {
+        if (startdate.getTime() >= enddate.getTime()) {
             return true;
         } else {
             return false;

@@ -10,7 +10,6 @@
             <label for="inputEmail">Email address</label>
             <input type="email" id="inputEmail" class="form-control" ng-model="user.email" placeholder="Email address" required>
             <div class="alert alert-danger" ng-show="checkemail(user.email)">Email adress is <strong>incorrect</strong></div>
-            <h4>Birthday (optional)</h4>
             <!--<div style="display:inline-block; min-height:290px;">-->
             <label for="inputPassword">Password</label>
             <input type="password" id="inputPassword" class="form-control" ng-model="user.password1" placeholder="Password" required>
@@ -23,7 +22,9 @@
             <label for="inputPassword2">Repeat Password</label>
             <input type="password" id="inputPassword2" class="form-control" ng-model="user.password2" placeholder="Repeat Password" required>
             <div class="alert alert-danger" ng-show="passwordsmatch(user.password1,user.password2)">Passwords do not <strong>match</strong></div>
-            <uib-datepicker ng-model="user.birthday" class="well well-sm" datepicker-options="options"></uib-datepicker>
+            <label for="birthday">Birthday (optional)</label>
+            <input type="date" class="form-control" ng-model="user.birthday" id="birthday">                        
+            <!--<uib-datepicker ng-model="user.birthday" class="well well-sm" datepicker-options="options"></uib-datepicker>-->
             <label for="Jobtitle">Job title (optional)</label>
             <input type="text" id="Jobtitle" class="form-control" ng-model="user.job" placeholder="Engineer">                        
             <button type="submit" class="btn btn-primary btn-block" ng-click="createnewuser(user)">Create User</button>
